@@ -42,6 +42,7 @@ div#tags_help_div {
 	left: 40px;
 	top: -<?php echo ((int)get_plugin_setting('boxheight','typeaheadtags') +20); ?>px;
 	overflow: hidden;
+	z-index: 1;
 }
 
 table#tags_list {
