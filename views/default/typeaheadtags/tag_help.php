@@ -24,7 +24,7 @@
 	echo "<h3>" . elgg_echo('typeaheadtags:label:help') . "</h3><hr />";
 	echo "<table id='tags_list'>";
 	foreach ($tags_array as $name => $desc) {
-		echo "<tr><td><span class='tag_name'>$name</span></td><td>$desc</td></tr>";
+		echo "<tr><td style='width: 40%;'><span class='tag_name'>$name</span></td><td>$desc</td></tr>";
 	}
 	echo "</table>";
 ?>

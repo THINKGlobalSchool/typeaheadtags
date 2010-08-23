@@ -15,6 +15,8 @@ $english = array(
 	// Labels 
 	'typeaheadtags:label:help' => 'Recommended Tags',
 	'typeaheadtags:label:commontags' => 'Common Tags',
+	'typeaheadtags:label:boxheight' => 'Help Box Height',
+	'typeaheadtags:label:boxwidth' => 'Help Box Width',
 	
 	// Text/Content 
 	'typeaheadtags:text:commontagssettings' => 'Enter tag name and description like so: TagName - Description',

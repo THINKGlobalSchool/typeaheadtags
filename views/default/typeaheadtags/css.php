@@ -31,8 +31,8 @@ span#tags_help {
 div#tags_help_div {
 	position: absolute;
 	display: none;
-	width: 350px;
-	height: 150px;
+	width: <?php echo get_plugin_setting('boxwidth','typeaheadtags'); ?>px;
+	height: <?php echo get_plugin_setting('boxheight','typeaheadtags'); ?>px;
 	border: 1px solid #999;
 	-moz-box-shadow: 5px 5px 13px #333;
 	-webkit-box-shadow: 5px 5px 13px #333;
@@ -40,5 +40,14 @@ div#tags_help_div {
 	background: #eee;
 	padding: 5px;
 	left: 40px;
-	top: -170px;
+	top: -<?php echo ((int)get_plugin_setting('boxheight','typeaheadtags') +20); ?>px;
+	overflow: hidden;
+}
+
+table#tags_list {
+	font-size: 80%;
+}
+
+input.shortbox {
+	width: 200px;
 }
