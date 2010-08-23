@@ -59,7 +59,7 @@
 ?>
 <br />	
 <div style='position: relative;'>
-	<span id="tags_help" alt="Help" style='position: relative;'><div id='tags_help_div'><?php echo elgg_view('typeaheadtags/tag_help'); ?></div></span>
+	<span id="tags_help" alt="Help" style='position: relative;'><div id='tags_help_div'><span class='tag_help_close'><a>[X]</a></span><?php echo elgg_view('typeaheadtags/tag_help'); ?></div></span>
 	<input 	type="text" <?php if ($disabled) echo ' disabled="yes" '; ?><?php echo $vars['js']; ?> 
 			name="<?php echo $vars['internalname']; ?>" <?php if (isset($vars['internalid'])) echo "id=\"{$vars['internalid']}\""; ?> 
 			value="<?php echo htmlentities($tags, ENT_QUOTES, 'UTF-8'); ?>" 

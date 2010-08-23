@@ -48,6 +48,14 @@ table#tags_list {
 	font-size: 80%;
 }
 
+span.tag_help_close {
+	float: right;
+}
+
+span.tag_help_close a:hover {
+	cursor:default;
+}
+
 input.shortbox {
 	width: 200px;
 }
