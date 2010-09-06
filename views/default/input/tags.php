@@ -23,10 +23,12 @@
 	}
 	
 	$tags_array = json_encode($tags_array);
+	
+	$uid = uniqid(); // For multiple text boxes
 
-	$class = "input_tags typeaheadtags";
+	$class = "input_tags typeaheadtags_$uid tt";
 	if (isset($vars['class'])) {
-		$class = $vars['class'] . " typeaheadtags";
+		$class = $vars['class'] . " typeaheadtags_$uid tt";
 	}
 
 	$disabled = false;
@@ -71,7 +73,7 @@
 
 	$(document).ready(function () {
 		var data = $.parseJSON('<?php echo $tags_array;?>');
-		$(".typeaheadtags").autocomplete(data, {
+		$(".typeaheadtags_<?php echo $uid; ?>").autocomplete(data, {
 										highlight: false,
 										multiple: true,
 										multipleSeparator: ", ",

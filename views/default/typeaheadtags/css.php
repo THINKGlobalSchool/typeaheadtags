@@ -11,7 +11,7 @@
 	 */
 ?>
 
-input.typeaheadtags {
+input.tt {
 	position: absolute;
 	top: 0px;
 	left: 30px;

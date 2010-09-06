@@ -20,6 +20,5 @@
 		return true;
 	}
 	
-
 	register_elgg_event_handler('init', 'system', 'typeaheadtags_init');
 ?>
