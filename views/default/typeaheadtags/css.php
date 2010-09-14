@@ -18,7 +18,7 @@ input.tt {
 	width: 450px;
 }
 
-span#tags_help {
+span.tags_help {
 	position: absolute;
 	top: 0px;
 	bottom: 0px;
@@ -28,7 +28,7 @@ span#tags_help {
 	display: inline-block;
 }
 
-div#tags_help_div {
+div.tags_help_div {
 	position: absolute;
 	display: none;
 	width: <?php echo get_plugin_setting('boxwidth','typeaheadtags'); ?>px;
@@ -59,4 +59,10 @@ span.tag_help_close a:hover {
 
 input.shortbox {
 	width: 200px;
+}
+
+.tidypics_edit_image_container {
+	overflow: visible;
+	height: 300px;
+	clear: both;
 }
