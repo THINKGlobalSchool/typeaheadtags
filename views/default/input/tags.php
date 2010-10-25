@@ -62,7 +62,7 @@
 <br />	
 <div style='position: relative;'>
 	<span id='toggle_div_<?php echo $uid; ?>' class="tags_help" alt="Help" style='position: relative;'></span>
-	<div id='help_div_<?php echo $uid; ?>' class='tags_help_div'><span id='tag_help_close_<?php echo $uid; ?>' class='close_btn'><a>[X]</a></span><?php echo elgg_view('typeaheadtags/tag_help', array('uid' => $uid)); ?></div>
+	<div id='help_div_<?php echo $uid; ?>' class='tags_help_div'><span id='tag_help_close_<?php echo $uid; ?>' class='close_btn'><a>[Close]</a></span><?php echo elgg_view('typeaheadtags/tag_help', array('uid' => $uid)); ?></div>
 	<input 	type="text" <?php if ($disabled) echo ' disabled="yes" '; ?><?php echo $vars['js']; ?> 
 			name="<?php echo $vars['internalname']; ?>" <?php if (isset($vars['internalid'])) echo "id=\"{$vars['internalid']}\""; ?> 
 			value="<?php echo htmlentities($tags, ENT_QUOTES, 'UTF-8'); ?>" 
@@ -72,7 +72,9 @@
 <script language="javascript" type="text/javascript" src="<?php echo $vars['url']; ?>vendors/jquery/jquery.autocomplete.min.js"></script>
 <script type='text/javascript'>
 
+
 	$(document).ready(function () {
+		
 		var data = $.parseJSON('<?php echo $tags_array;?>');
 		$(".typeaheadtags_<?php echo $uid; ?>").autocomplete(data, {
 										highlight: false,
@@ -82,6 +84,8 @@
 										scrollHeight: 300
 		});
 		
+		var in_help_box = false;
+	
 		$('span#toggle_div_<?php echo $uid; ?>').click(
 			function() {
 				$('div#help_div_<?php echo $uid; ?>').toggle();
@@ -93,5 +97,23 @@
 				$('div#help_div_<?php echo $uid; ?>').toggle();
 			}
 		);
+		
+		$('#help_div_<?php echo $uid; ?>').hover(function(){ 
+		        in_help_box = true; 
+		    }, function(){ 
+		        in_help_box = false; 
+		});
+		
+		$('span#toggle_div_<?php echo $uid; ?>').hover(function(){ 
+		        in_help_box = true; 
+		    }, function(){ 
+		        in_help_box = false; 
+		});
+
+		$('body').mouseup(function(){ 
+			if(!in_help_box) {
+				$('div#help_div_<?php echo $uid; ?>').hide();
+			}
+		});		
 	});
 </script>

@@ -93,3 +93,7 @@ input.shortbox {
 	height: 300px;
 	clear: both;
 }
+
+a.fix_cursor:hover {
+	cursor: pointer;
+}
