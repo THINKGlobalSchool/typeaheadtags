@@ -76,12 +76,12 @@ div#top_tags h3 {
 	padding-bottom: 4px;
 }
 
-span.tag_help_close {
+span.close_btn {
 	float: right;
 }
 
-span.tag_help_close a:hover {
-	cursor:default;
+span.close_btn a:hover {
+	cursor: pointer;
 }
 
 input.shortbox {
