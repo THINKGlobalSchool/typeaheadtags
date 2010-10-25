@@ -28,6 +28,10 @@ span.tags_help {
 	display: inline-block;
 }
 
+span.tags_help:hover {
+	cursor: pointer;
+}
+
 div.tags_help_div {
 	position: absolute;
 	display: none;
