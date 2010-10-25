@@ -51,6 +51,29 @@ div.tags_help_div {
 
 table#tags_list {
 	font-size: 80%;
+	float: left;
+	width: 405px;
+}
+
+div#top_tags {
+	float: right;
+	border: 1px solid #bbb;
+	padding: 7px;
+	width: 150px;
+	margin-right: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-moz-box-shadow: 2px 2px 2px #666;
+	-webkit-box-shadow: 2px 2px 2px #666;
+	background: #fff;
+}
+
+div#top_tags table {
+	font-size: 90%;
+}
+
+div#top_tags h3 {
+	padding-bottom: 4px;
 }
 
 span.tag_help_close {

@@ -15,6 +15,7 @@ $english = array(
 	// Labels 
 	'typeaheadtags:label:help' => 'Recommended Tags',
 	'typeaheadtags:label:commontags' => 'Common Tags',
+	'typeaheadtags:label:toptags' => 'Top Tags',
 	'typeaheadtags:label:boxheight' => 'Help Box Height',
 	'typeaheadtags:label:boxwidth' => 'Help Box Width',
 	
