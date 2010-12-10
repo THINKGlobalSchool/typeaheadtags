@@ -14,7 +14,7 @@
 		global $CONFIG;
 		
 		// CSS 
-		elgg_extend_view('css', 'typeaheadtags/css');
+		elgg_extend_view('css/screen', 'typeaheadtags/css');
 
 		
 		return true;
