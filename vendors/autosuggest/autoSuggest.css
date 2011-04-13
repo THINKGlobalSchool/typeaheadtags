@@ -2,17 +2,31 @@
 
 ul.as-selections {
 	list-style-type: none;
-	border-top: 1px solid #888;
-	border-bottom: 1px solid #b6b6b6;
-	border-left: 1px solid #aaa;
-	border-right: 1px solid #aaa;
 	padding: 4px 0 4px 4px;
 	margin: 0;
 	overflow: auto;
-	background-color: #fff;
-	box-shadow:inset 0 1px 2px #888;
-	-webkit-box-shadow:inset 0 1px 2px #888;
-	-moz-box-shadow:inset 0 1px 2px #888;
+
+
+	
+	border: 1px solid #ccc;
+	color: #666;
+	font: 120% Arial, Helvetica, sans-serif;
+	padding: 5px;
+	width: 100%;
+
+	-webkit-border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	border-radius: 5px !important;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+ul.as-selections:focus {
+	border: solid 1px #4690d6;
+	background: #e4ecf5;
+	color:#333;
 }
 
 ul.as-selections.loading {
@@ -105,10 +119,14 @@ ul.as-selections li.as-original {
 ul.as-selections li.as-original input {
 	border: none;
 	outline: none;
-	font-size: 13px;
+	font-size: 12px;
 	width: 120px;
-	height: 18px;
-	padding-top: 3px;
+	height: 23px;
+	padding-top: 5px;
+}
+
+ul.as-selections li.as-original input:focus {
+	border: 1px solid #4690D6;
 }
 
 ul.as-list {

@@ -23,7 +23,7 @@ function typeaheadtags_init() {
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
 	elgg_register_js('elgg.typeaheadtags', $typeahead_js);
-	
+		
 	// Register simplecache view for autosuggest
 	elgg_register_simplecache_view('js/typeaheadtags/autosuggest');
 	
@@ -52,6 +52,7 @@ function typeaheadtags_init() {
  * Page handler for typeahead tags
  */
 function typeaheadtags_page_handler($page) {
+	//gatekeeper(); - Not sure if I need to prevent access..
 	$q = get_input('q');
 		
 	// Only grab tags similar to the input
