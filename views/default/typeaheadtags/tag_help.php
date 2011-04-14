@@ -10,7 +10,7 @@
  */
 
 // Get contacts from plugin settings
-$tags = get_plugin_setting('commontags','typeaheadtags');
+$tags = elgg_get_plugin_setting('commontags','typeaheadtags');
 $uid = $vars['uid'];
 $tags = explode("\n", $tags);
 $tags_array = array();
