@@ -11,69 +11,58 @@
  */
 ?>
 
-input.tt {
-	position: absolute;
-	top: 0px;
-	left: 30px;
-	width: 450px;
+li.typeaheadtags-help-button  span {
+	font-weight: bold;
 }
 
-span.tags_help {
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	background-image:url(<?php echo $vars['url']; ?>mod/typeaheadtags/images/tag_help.png);
-	height: 29px;
-	width: 29px;
-	display: inline-block;
-}
-
-span.tags_help:hover {
+li.typeaheadtags-help-button  span:hover {
 	cursor: pointer;
 }
 
-div.tags_help_div {
-	position: absolute;
-	display: none;
-	width: <?php echo get_plugin_setting('boxwidth','typeaheadtags'); ?>px;
-	height: <?php echo get_plugin_setting('boxheight','typeaheadtags'); ?>px;
-	border: 1px solid #999;
-	-moz-box-shadow: 5px 5px 13px #333;
-	-webkit-box-shadow: 5px 5px 13px #333;
-	box-shadow: 5px 5px 13px #333;
-	background: #eee;
-	padding: 5px;
-	left: 40px;
-	top: -<?php echo ((int)get_plugin_setting('boxheight','typeaheadtags') +20); ?>px;
-	overflow: hidden;
-	z-index: 7001;
+li.typeaheadtags-help-button {
+	padding: 2px 7px 2px 8px !important;
+	color: #2b3840;
+	background-color: #bbd4f1;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbd4f1), to(#a3c2e5));
+	border-color: #6da0e0;
+	border-top-color: #8bb7ed;
 }
 
-table#tags_list {
+li.typeaheadtags-help-button:hover {
+	cursor: pointer;
+}
+
+div.typeaheadtags-help-container {
+	margin-top: 5px;
+	display: none;
+}
+
+table#typeaheadtags-tags-list {
 	font-size: 80%;
 	float: left;
 	width: 405px;
 }
 
-div#top_tags {
+div#typeaheadtags-top-tags {
 	float: right;
-	border: 1px solid #bbb;
-	padding: 7px;
 	width: 150px;
 	margin-right: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-moz-box-shadow: 2px 2px 2px #666;
-	-webkit-box-shadow: 2px 2px 2px #666;
-	background: #fff;
 }
 
-div#top_tags table {
+div#typeaheadtags-top-tags table {
 	font-size: 90%;
 }
 
-div#top_tags h3 {
+div#typeaheadtags-top-tags h3 {
 	padding-bottom: 4px;
+}
+
+a.typeaheadtags-help-close:hover {
+	cursor: pointer;
+}
+
+span.tag-name a:hover {
+	cursor: pointer;
 }
 
 span.close_btn {
@@ -86,14 +75,4 @@ span.close_btn a:hover {
 
 input.shortbox {
 	width: 200px;
-}
-
-.tidypics_edit_image_container {
-	overflow: visible;
-	height: 300px;
-	clear: both;
-}
-
-a.fix_cursor:hover {
-	cursor: pointer;
 }

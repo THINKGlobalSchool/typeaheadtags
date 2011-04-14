@@ -24,23 +24,33 @@ foreach ($tags as $idx => $tag) {
 
 $top_tags_data = elgg_get_tags(array('limit' => 11));
 
+$title = elgg_echo('typeaheadtags:label:help');
+$title .= '<a class="typeaheadtags-help-close"><span class="elgg-icon elgg-icon-delete right"></span></a>';
 
-echo "<script type='text/javascript'>
+$content .= "<script type='text/javascript'>
 		function addTag(text, uid) {
 			$('.typeaheadtags_' + uid).val($('.typeaheadtags_' + uid).val() + text + ', ');
 		}
 	</script>
 ";
 
-echo "<h3>" . elgg_echo('typeaheadtags:label:help') . "</h3><hr />";
-echo "<table id='tags_list'>";
+$content .= "<table id='typeaheadtags-tags-list'>";
 foreach ($tags_array as $name => $desc) {
-	echo "<tr><td style='width: 38%;'><span class='tag_name'><a class='fix_cursor' onclick='javascript:addTag(\"$name\", \"$uid\");'>$name</a></span></td><td style='width: 62%;'>$desc</td></tr>";
+	$content .= "<tr><td style='width: 38%;'><span class='tag-name'><a class='typeaheadtags-add-tag'>$name</a></span></td><td style='width: 62%;'>$desc</td></tr>";
 }
-echo "</table>";
+$content .= "</table>";
 
-echo "<div id='top_tags'><table><h3>" . elgg_echo('typeaheadtags:label:toptags') . "</h3>";
+$top_title = elgg_echo('typeaheadtags:label:toptags');
+$top_content .= "<table>";
 foreach ($top_tags_data as $top_tag) {
-	echo "<tr><td><span class='tag_name'><a class='fix_cursor' onclick='javascript:addTag(\"$top_tag->tag\", \"$uid\");'>$top_tag->tag</a></span></td></tr>";
+	$top_content .= "<tr><td><span class='tag-name'><a class='typeaheadtags-add-tag'>$top_tag->tag</a></span></td></tr>";
 }
-echo "</table></div>";
+$top_content .= "</table>";
+
+$top_module = elgg_view_module('aside', $top_title, $top_content, $options);
+
+$content .= "<div id='typeaheadtags-top-tags'>";
+$content .= $top_module;
+$content .= "</div>";
+
+echo elgg_view_module('featured', $title, $content, $options);

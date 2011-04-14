@@ -10,33 +10,14 @@
  * 
  */
 ?>
+<br />
 <p>
-	<label><?php echo elgg_echo('typeaheadtags:label:commontags'); ?></label><br /><br />
+	<label><?php echo elgg_echo('typeaheadtags:label:commontags'); ?></label><br />
 	<?php echo elgg_echo('typeaheadtags:text:commontagssettings'); ?><br />
 	<?php 
 	echo elgg_view('input/plaintext', array(
 										'internalname' => 'params[commontags]', 
 										'value' => $vars['entity']->commontags)
 										); 
-	?>
-</p>
-<p>
-	<label><?php echo elgg_echo('typeaheadtags:label:boxheight'); ?></label><br />
-	<?php 
-	echo elgg_view('input/text', array(
-										'internalname' => 'params[boxheight]', 
-										'value' => $vars['entity']->boxheight,
-										'class' => 'shortbox'
-										)); 
-	?>
-</p>
-<p>
-	<label><?php echo elgg_echo('typeaheadtags:label:boxwidth'); ?></label><br />
-	<?php 
-	echo elgg_view('input/text', array(
-										'internalname' => 'params[boxwidth]', 
-										'value' => $vars['entity']->boxwidth,
-										'class' => 'shortbox'
-										)); 
 	?>
 </p>

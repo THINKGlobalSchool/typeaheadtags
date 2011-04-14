@@ -124,7 +124,11 @@
 				selections_holder.click(function(){
 					input_focus = true;
 					input.focus();
-				}).mousedown(function(){ input_focus = false; }).after(results_holder);	
+				}).mousedown(function(){ 
+					input_focus = false; 
+					$(this).after(results_holder);	// JEFF CHANGE 
+				})
+				
 
 				var timeout = null;
 				var prev = "";

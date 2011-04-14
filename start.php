@@ -52,27 +52,34 @@ function typeaheadtags_init() {
  * Page handler for typeahead tags
  */
 function typeaheadtags_page_handler($page) {
-	//gatekeeper(); - Not sure if I need to prevent access..
-	$q = get_input('q');
-		
-	// Only grab tags similar to the input
-	$wheres[] = "msv.string like '%$q%'";	
-			
-	// Get site tags
-	$site_tags = elgg_get_tags(array(
-		'threshold' => 0, 
-		'limit' => 99999,
-		'wheres' => $wheres,
-	));
+	switch($page[0]) {
+		case 'search':
+			//gatekeeper(); - Not sure if I need to prevent access..
+			$q = get_input('q');
 
-	$tags_array = array();
-	foreach ($site_tags as $site_tag) {
-		$tag = array();
-		$tag['tag'] = $site_tag->tag;
-		$tags_array[] = $tag;
+			// Only grab tags similar to the input
+			$wheres[] = "msv.string like '%$q%'";	
+
+			// Get site tags
+			$site_tags = elgg_get_tags(array(
+				'threshold' => 0, 
+				'limit' => 99999,
+				'wheres' => $wheres,
+			));
+
+			$tags_array = array();
+			foreach ($site_tags as $site_tag) {
+				$tag = array();
+				$tag['tag'] = $site_tag->tag;
+				$tags_array[] = $tag;
+			}
+
+			echo json_encode($tags_array);
+			break;
+		case 'help':
+			echo elgg_view('typeaheadtags/tag_help');
+			break;
 	}
-	
-	echo json_encode($tags_array);
 }
 
 /**
