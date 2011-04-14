@@ -19,13 +19,13 @@ li.typeaheadtags-help-button  span:hover {
 	cursor: pointer;
 }
 
-li.typeaheadtags-help-button {
+li.typeaheadtags-help-button, li.typeaheadtags-help-button.blur {
 	padding: 2px 7px 2px 8px !important;
-	color: #2b3840;
-	background-color: #bbd4f1;
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbd4f1), to(#a3c2e5));
-	border-color: #6da0e0;
-	border-top-color: #8bb7ed;
+	color: #2b3840 !important;
+	background-color: #bbd4f1 !important;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbd4f1), to(#a3c2e5)) !important;
+	border-color: #6da0e0 !important;
+	border-top-color: #8bb7ed !important;
 }
 
 li.typeaheadtags-help-button:hover {
