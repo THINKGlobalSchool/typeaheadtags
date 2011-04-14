@@ -64,15 +64,3 @@ a.typeaheadtags-help-close:hover {
 span.tag-name a:hover {
 	cursor: pointer;
 }
-
-span.close_btn {
-	float: right;
-}
-
-span.close_btn a:hover {
-	cursor: pointer;
-}
-
-input.shortbox {
-	width: 200px;
-}

@@ -12,8 +12,10 @@
 //<script>
 elgg.provide('elgg.typeaheadtags');
 
-// URL for tag data
+// URL for tag search
 elgg.typeaheadtags.tagsURL = elgg.get_site_url() + 'typeaheadtags/search';
+
+// URL for tag help box
 elgg.typeaheadtags.helpURL = elgg.get_site_url() + 'typeaheadtags/help';
 
 elgg.typeaheadtags.init = function() {	
@@ -52,10 +54,8 @@ elgg.typeaheadtags.init = function() {
 	// Close button on tag help module
 	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideToggle('fast');});
 	
-	// Make 'add tag links' do magic
+	// Make tags in the tag help box clickable
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
-	
-
 }
 
 /**

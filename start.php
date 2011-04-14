@@ -53,6 +53,7 @@ function typeaheadtags_init() {
  */
 function typeaheadtags_page_handler($page) {
 	switch($page[0]) {
+		// Tag search
 		case 'search':
 			//gatekeeper(); - Not sure if I need to prevent access..
 			$q = get_input('q');
@@ -76,6 +77,7 @@ function typeaheadtags_page_handler($page) {
 
 			echo json_encode($tags_array);
 			break;
+		// Display tag help
 		case 'help':
 			echo elgg_view('typeaheadtags/tag_help');
 			break;
@@ -83,7 +85,8 @@ function typeaheadtags_page_handler($page) {
 }
 
 /**
- * Plugin hook handler to mess around with the tags input view
+ * Plugin hook handler to load autosuggest and typeahead tag JS when 
+ * the the input/tags view is loaded
  *
  * @param sting  $hook   view
  * @param string $type   input/tags
