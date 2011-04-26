@@ -38,22 +38,25 @@ div.typeaheadtags-help-container {
 }
 
 table#typeaheadtags-tags-list {
-	font-size: 80%;
 	float: left;
-	width: 405px;
+	width: 30%;
 }
 
-div#typeaheadtags-top-tags {
+div.typeaheadtags-module .elgg-body {
+	overflow: visible;
+}
+
+div.typeaheadtags-module-help {
 	float: right;
-	width: 150px;
+	width: 200px;
 	margin-right: 5px;
 }
 
-div#typeaheadtags-top-tags table {
+div#typeaheadtags-module-help table {
 	font-size: 90%;
 }
 
-div#typeaheadtags-top-tags h3 {
+div#typeaheadtags-module-help h3 {
 	padding-bottom: 4px;
 }
 
@@ -63,4 +66,35 @@ a.typeaheadtags-help-close:hover {
 
 span.tag-name a:hover {
 	cursor: pointer;
+}
+
+/* Tooltips */
+
+span.tag-name {
+	position: relative;   /* this is key */
+ 	//cursor: help;
+}
+
+span.tag-name span.tag-description {
+	display: none;        /* so is this */
+}
+
+span.tag-name:hover {
+	cursor: help;
+}
+
+span.tag-name:hover span.tag-description {
+	font-weight: bold;
+	display: block;
+	z-index: 7001;
+	position: absolute;
+	top: 2em;
+	left: 25px;
+	width: auto;
+	min-width: 90px;
+	padding: 3px 7px 4px 6px;
+	border: 1px solid #777;
+	background-color: #ffffff;
+	text-align: left;
+	color: #000;
 }

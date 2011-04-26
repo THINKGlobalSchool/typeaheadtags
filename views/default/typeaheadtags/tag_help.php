@@ -11,7 +11,6 @@
 
 // Get contacts from plugin settings
 $tags = elgg_get_plugin_setting('commontags','typeaheadtags');
-$uid = $vars['uid'];
 $tags = explode("\n", $tags);
 $tags_array = array();
 foreach ($tags as $idx => $tag) {
@@ -20,6 +19,18 @@ foreach ($tags as $idx => $tag) {
 			$tags[$idx][$key]= trim($info);
 	}
 	$tags_array[$tags[$idx][0]] = $tags[$idx][1]; 
+}
+
+// Get student jobs 
+$jobs = get_plugin_setting('jobs', 'typeaheadtags');
+$jobs = explode("\n", $jobs);
+$jobs_array = array();
+foreach($jobs as $idx => $job) {
+	$jobs[$idx] = explode("-", $job);
+	foreach ($jobs[$idx] as $key => $info) {
+			$jobs[$idx][$key]= trim($info);
+	}
+	$jobs_array[$jobs[$idx][0]] = $jobs[$idx][1];
 }
 
 $top_tags_data = elgg_get_tags(array('limit' => 11));
@@ -36,7 +47,7 @@ $content .= "<script type='text/javascript'>
 
 $content .= "<table id='typeaheadtags-tags-list'>";
 foreach ($tags_array as $name => $desc) {
-	$content .= "<tr><td style='width: 38%;'><span class='tag-name'><a class='typeaheadtags-add-tag'>$name</a></span></td><td style='width: 62%;'>$desc</td></tr>";
+	$content .= "<tr><td style='width: 38%;'><span class='tag-name'><a class='typeaheadtags-add-tag'>$name</a><span class='tag-description'>$desc</span></span></td></tr>";
 }
 $content .= "</table>";
 
@@ -47,10 +58,15 @@ foreach ($top_tags_data as $top_tag) {
 }
 $top_content .= "</table>";
 
-$top_module = elgg_view_module('aside', $top_title, $top_content, $options);
+$content .= elgg_view_module('aside', $top_title, $top_content, array('class' => 'typeaheadtags-module typeaheadtags-module-help'));
 
-$content .= "<div id='typeaheadtags-top-tags'>";
-$content .= $top_module;
-$content .= "</div>";
+$jobs_title = elgg_echo('typeaheadtags:label:jobs');
+$jobs_content = "<table>";
+foreach ($jobs_array as $tag => $desc) {
+	$jobs_content .=  "<tr><td><span class='tag-name'><a class='typeaheadtags-add-tag'>$tag</a><span class='tag-description'>$desc</span></span></td></tr>";
+}
+$jobs_content .= "</table>";
 
-echo elgg_view_module('featured', $title, $content, $options);
+$content .= elgg_view_module('aside', $jobs_title, $jobs_content, array('class' => 'typeaheadtags-module typeaheadtags-module-help'));
+
+echo elgg_view_module('featured', $title, $content, array('class' => 'typeaheadtags-module'));

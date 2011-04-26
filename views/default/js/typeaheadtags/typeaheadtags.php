@@ -69,10 +69,19 @@ elgg.typeaheadtags.showHelp = function(e) {
 	if ($('div[name="' + hidden_id + '"]').is(':empty')) {
 		$('div[name="' + hidden_id + '"]').load(elgg.typeaheadtags.helpURL, function() {
 			$(this).slideToggle('fast');
+			
+			// Need to force the modules height due to setting overflow hidden
+			var table = $('div[name="' + hidden_id + '"] table#typeaheadtags-tags-list');
+			table.closest('div.elgg-body').height(table.height());
+			
+			console.log(height);
 		});
 	} else {
 		$('div[name="' + hidden_id + '"]').slideToggle('fast');
 	}
+	
+
+	
 }
 
 /**
