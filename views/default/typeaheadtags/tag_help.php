@@ -8,10 +8,12 @@
 	 * @copyright THINK Global School 2010
 	 * @link http://www.thinkglobalschool.com/
 	 */
+	
+	// Unique ID
+	$uid = $vars['uid'];
 
 	// Get contacts from plugin settings
 	$tags = get_plugin_setting('commontags','typeaheadtags');
-	$uid = $vars['uid'];
 	$tags = explode("\n", $tags);
 	$tags_array = array();
 	foreach ($tags as $idx => $tag) {
@@ -20,6 +22,17 @@
 				$tags[$idx][$key]= trim($info);
 		}
 		$tags_array[$tags[$idx][0]] = $tags[$idx][1]; 
+	}
+	
+	$jobs = get_plugin_setting('jobs', 'typeaheadtags');
+	$jobs = explode("\n", $jobs);
+	$jobs_array = array();
+	foreach($jobs as $idx => $job) {
+		$jobs[$idx] = explode("-", $job);
+		foreach ($jobs[$idx] as $key => $info) {
+				$jobs[$idx][$key]= trim($info);
+		}
+		$jobs_array[$jobs[$idx][0]] = $jobs[$idx][1];
 	}
 
 	$top_tags_data = elgg_get_tags(array('limit' => 11));
@@ -35,13 +48,38 @@
 	echo "<h3>" . elgg_echo('typeaheadtags:label:help') . "</h3><hr />";
 	echo "<table id='tags_list'>";
 	foreach ($tags_array as $name => $desc) {
-		echo "<tr><td style='width: 38%;'><span class='tag_name'><a class='fix_cursor' onclick='javascript:addTag(\"$name\", \"$uid\");'>$name</a></span></td><td style='width: 62%;'>$desc</td></tr>";
+		echo "<tr>
+				<td>
+					<span class='tag-name'>
+						<a onclick='javascript:addTag(\"$name\", \"$uid\");'>$name</a>
+						<span class='tag-description'>
+							$desc
+						</span>
+					</span>
+				</td>
+			</tr>";
 	}
 	echo "</table>";
-	
-	echo "<div id='top_tags'><table><h3>" . elgg_echo('typeaheadtags:label:toptags') . "</h3>";
+		
+	echo "<div id='top-tags'><table><h3>" . elgg_echo('typeaheadtags:label:toptags') . "</h3>";
 	foreach ($top_tags_data as $top_tag) {
-		echo "<tr><td><span class='tag_name'><a class='fix_cursor' onclick='javascript:addTag(\"$top_tag->tag\", \"$uid\");'>$top_tag->tag</a></span></td></tr>";
+		echo "<tr><td><span class='tag-name'><a class='fix_cursor' onclick='javascript:addTag(\"$top_tag->tag\", \"$uid\");'>$top_tag->tag</a></span></td></tr>";
 	}
 	echo "</table></div>";
+	
+	echo "<div id='top-tags'><table><h3>" . elgg_echo('typeaheadtags:label:jobs') . "</h3>";
+	foreach ($jobs_array as $tag => $desc) {
+		echo "<tr>
+				<td>
+					<span class='tag-name'>
+						<a onclick='javascript:addTag(\"$tag\", \"$uid\");'>$tag</a>
+						<span class='tag-description'>
+							$desc
+						</span>
+					</span>
+				</td>
+			</tr>";
+	}
+	echo "</table></div>";
+
 ?>

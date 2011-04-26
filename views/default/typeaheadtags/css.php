@@ -45,21 +45,22 @@ div.tags_help_div {
 	padding: 5px;
 	left: 40px;
 	top: -<?php echo ((int)get_plugin_setting('boxheight','typeaheadtags') +20); ?>px;
-	overflow: hidden;
-	z-index: 7001;
+	overflow: show;
+	z-index: 7000;
 }
 
 table#tags_list {
 	font-size: 80%;
 	float: left;
-	width: 405px;
+	width: auto;
 }
 
-div#top_tags {
+div#top-tags {
 	float: right;
 	border: 1px solid #bbb;
 	padding: 7px;
-	width: 150px;
+	width: auto;
+	min-width: 150px;
 	margin-right: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -68,11 +69,11 @@ div#top_tags {
 	background: #fff;
 }
 
-div#top_tags table {
+div#top-tags table {
 	font-size: 90%;
 }
 
-div#top_tags h3 {
+div#top-tags h3 {
 	padding-bottom: 4px;
 }
 
@@ -96,4 +97,35 @@ input.shortbox {
 
 a.fix_cursor:hover {
 	cursor: pointer;
+}
+
+/* Tooltips */
+
+span.tag-name {
+	position: relative;   /* this is key */
+ 	//cursor: help;
+}
+
+span.tag-name span.tag-description {
+	display: none;        /* so is this */
+}
+
+span.tag-name:hover {
+	cursor: help;
+}
+
+span.tag-name:hover span.tag-description {
+	font-weight: bold;
+	display: block;
+	z-index: 7001;
+	position: absolute;
+	top: 2em;
+	left: 25px;
+	width: auto;
+	min-width: 90px;
+	padding: 3px 7px 4px 6px;
+	border: 1px solid #777;
+	background-color: #ffffff;
+	text-align: left;
+	color: #000;
 }

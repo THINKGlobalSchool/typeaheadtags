@@ -18,6 +18,7 @@ $english = array(
 	'typeaheadtags:label:toptags' => 'Top Tags',
 	'typeaheadtags:label:boxheight' => 'Help Box Height',
 	'typeaheadtags:label:boxwidth' => 'Help Box Width',
+	'typeaheadtags:label:jobs' => 'Six Jobs For Students',
 	
 	// Text/Content 
 	'typeaheadtags:text:commontagssettings' => 'Enter tag name and description like so: TagName - Description',

@@ -21,6 +21,16 @@
 	?>
 </p>
 <p>
+	<label><?php echo elgg_echo('typeaheadtags:label:jobs'); ?></label><br /><br />
+	<?php echo elgg_echo('typeaheadtags:text:commontagssettings'); ?><br />
+	<?php 
+	echo elgg_view('input/plaintext', array(
+										'internalname' => 'params[jobs]', 
+										'value' => $vars['entity']->jobs)
+										); 
+	?>
+</p>
+<p>
 	<label><?php echo elgg_echo('typeaheadtags:label:boxheight'); ?></label><br />
 	<?php 
 	echo elgg_view('input/text', array(
