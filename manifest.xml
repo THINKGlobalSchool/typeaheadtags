@@ -3,7 +3,7 @@
 	<name>Typeahead Tags</name>
 	<author>Jeff Tilson</author>
 	<version>1.8</version>
-	<category>Extensions</category>
+	<category>extension</category>
 	<blurb>Typeahead Tags Plugin</blurb>
 	<description>Provides typeahead support for tag inputs</description>
 	<website>http://www.thinkglobalschool.org/</website>
