@@ -31,20 +31,21 @@ function typeaheadtags_init() {
 	$autosuggest_js = elgg_get_simplecache_url('js', 'typeaheadtags/autosuggest');
 	elgg_register_js('autosuggest', $autosuggest_js);
 	
-	// Register CSS for autosuggest
-	$css_path = elgg_get_site_url();
-	
 	// Allow default theme to be extended
 	if (!elgg_view_exists('css/typeaheadtags/autosuggest')) {
+		$css_path = elgg_get_site_url();
 		$autosuggest_css = "{$css_path}mod/typeaheadtags/vendors/autosuggest/autoSuggest.css";
 	} else {
 		$autosuggest_css = elgg_get_simplecache_url('css', 'typeaheadtags/autosuggest');
 	}
 
+	// Register Autosuggest CSS
 	elgg_register_css('autosuggest', $autosuggest_css);
 	
-	// CSS 
-	elgg_extend_view('css/elgg', 'typeaheadtags/css');
+	// Load CSS
+	$t_css = elgg_get_simplecache_url('css', 'typeaheadtags/css');
+	elgg_register_css('elgg.typeaheadtags', $t_css);
+	elgg_load_css('elgg.typeaheadtags');
 	
 	// Register for view plugin hook 
 	elgg_register_plugin_hook_handler('view', 'input/tags', 'typeaheadtags_input_handler');
