@@ -33,7 +33,14 @@ function typeaheadtags_init() {
 	
 	// Register CSS for autosuggest
 	$css_path = elgg_get_site_url();
-	$autosuggest_css = "{$css_path}mod/typeaheadtags/vendors/autosuggest/autoSuggest.css";
+	
+	// Allow default theme to be extended
+	if (!elgg_view_exists('css/typeaheadtags/autosuggest')) {
+		$autosuggest_css = "{$css_path}mod/typeaheadtags/vendors/autosuggest/autoSuggest.css";
+	} else {
+		$autosuggest_css = elgg_get_simplecache_url('css', 'typeaheadtags/autosuggest');
+	}
+
 	elgg_register_css('autosuggest', $autosuggest_css);
 	
 	// CSS 
