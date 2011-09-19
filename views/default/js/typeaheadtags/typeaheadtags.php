@@ -67,7 +67,7 @@ elgg.typeaheadtags.init = function() {
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
 	
 	// Need to ignore these ones
-	var exceptions = ['skills', 'interests'];
+	var exceptions = ['skills', 'interests', 'suggested_tags'];
 	
 	// Prevent form submit if a tag input is empty
 	$('input.as-values').closest('form').submit(function(event){
