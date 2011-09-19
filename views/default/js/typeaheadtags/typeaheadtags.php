@@ -8,9 +8,15 @@
  * @copyright THINK Global School 2010
  * @link http://www.thinkglobalschool.com/
  */
+
+// Get common tags from plugin settings
+$tags = elgg_get_plugin_setting('defaulttags','typeaheadtags');
+
 ?>
 //<script>
 elgg.provide('elgg.typeaheadtags');
+
+elgg.typeaheadtags.defaultTags = '<?php echo $tags; ?>';
 
 // URL for tag search
 elgg.typeaheadtags.tagsURL = elgg.get_site_url() + 'typeaheadtags/search';
@@ -21,7 +27,7 @@ elgg.typeaheadtags.helpURL = elgg.get_site_url() + 'typeaheadtags/help';
 elgg.typeaheadtags.init = function() {	
 	// Which object field to use for tags
 	var objProp = "tag";
-	
+		
 	// Loop over each tag input (possible there are more than one)
 	$('.elgg-input-tags').each(function() {
 		
@@ -47,41 +53,79 @@ elgg.typeaheadtags.init = function() {
 		// Create help container
 		$(this).closest('.as-selections').after("<div name='" + hidden_id + "' class='typeaheadtags-help-container clearfix'></div>");
 	}); 
+
+	$('.as-selections').focus(elgg.typeaheadtags.showHelp);
 	
 	// Make help button clickable
-	$('.typeaheadtags-help-button').live('click', elgg.typeaheadtags.showHelp);
+	$('.typeaheadtags-help-button').live('click', elgg.typeaheadtags.toggleHelp);
+
 	
 	// Close button on tag help module
 	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideToggle('fast');});
 	
 	// Make tags in the tag help box clickable
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
+	
+	// Need to ignore these ones
+	var exceptions = ['skills', 'interests'];
+	
+	// Prevent form submit if a tag input is empty
+	$('input.as-values').closest('form').submit(function(event){
+		// Check each input, excluding exceptions
+		$('input.as-values').each(function() {
+			var name = $(this).attr('name');
+			
+			$(this).closest('.as-selections').removeClass('tag-error');
+			
+			if ($.inArray(name, exceptions) == -1) {
+				console.log($(this));
+				var value = $(this).val();
+				if (!value || $.trim(value) == ',') {
+					event.preventDefault();
+					$(this).closest('.as-selections').addClass('tag-error');
+					elgg.register_error(elgg.echo('typeaheadtags:error:missingtags'));
+				}
+			}
+		});
+	});
+	
+	// Pre-fill with default tags
+	$('input.as-values').each(function() {
+		var name = $(this).attr('name');
+	});
 }
 
 /**
  * Show help div 
  */
 elgg.typeaheadtags.showHelp = function(e) {
+	
 	e.preventDefault();	
 	var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
 	
-	// Only load if empty
-	if ($('div[name="' + hidden_id + '"]').is(':empty')) {
-		$('div[name="' + hidden_id + '"]').load(elgg.typeaheadtags.helpURL, function() {
-			$(this).slideToggle('fast');
+	if (e.type == 'focus' && !$('div[name="' + hidden_id + '"]').data('isHelpShowing')) {
+		
+		// Only load if empty
+		if ($('div[name="' + hidden_id + '"]').is(':empty')) {
+			$('div[name="' + hidden_id + '"]').load(elgg.typeaheadtags.helpURL, function() {
+				$(this).slideToggle('fast');
 			
-			// Need to force the modules height due to setting overflow hidden
-			var table = $('div[name="' + hidden_id + '"] table#typeaheadtags-tags-list');
-			table.closest('div.elgg-body').height(table.height());
-			
-			console.log(height);
-		});
-	} else {
-		$('div[name="' + hidden_id + '"]').slideToggle('fast');
+				// Need to force the modules height due to setting overflow hidden
+				var table = $('div[name="' + hidden_id + '"] table#typeaheadtags-tags-list');
+				table.closest('div.elgg-body').height(table.height());
+			});
+		} else {
+			$('div[name="' + hidden_id + '"]').slideDown('fast');
+		}
+		
+		$('div[name="' + hidden_id + '"]').data('isHelpShowing', true);
 	}
-	
+}
 
-	
+elgg.typeaheadtags.toggleHelp = function(e) {
+	e.preventDefault();	
+	var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
+	$('div[name="' + hidden_id + '"]').slideToggle('fast');	
 }
 
 /**

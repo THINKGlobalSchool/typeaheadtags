@@ -16,7 +16,10 @@ $english = array(
 	'typeaheadtags:label:help' => 'Recommended Tags',
 	'typeaheadtags:label:commontags' => 'Common Tags',
 	'typeaheadtags:label:toptags' => 'Top Tags',
-	'typeaheadtags:label:jobs' => 'Six Jobs For Students',
+	'typeaheadtags:label:defaulttags' => 'Default Tags',
+	
+	// Error
+	'typeaheadtags:error:missingtags' => 'You must supply at least one tag',
 	
 	// Text/Content 
 	'typeaheadtags:text:commontagssettings' => 'Enter tag name and description like so: TagName - Description',

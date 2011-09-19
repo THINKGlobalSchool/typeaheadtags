@@ -22,12 +22,11 @@
 	?>
 </p>
 <p>
-	<label><?php echo elgg_echo('typeaheadtags:label:jobs'); ?></label><br /><br />
-	<?php echo elgg_echo('typeaheadtags:text:commontagssettings'); ?><br />
+	<label><?php echo elgg_echo('typeaheadtags:label:defaulttags'); ?></label><br /><br />
 	<?php 
-	echo elgg_view('input/plaintext', array(
-										'internalname' => 'params[jobs]', 
-										'value' => $vars['entity']->jobs)
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[defaulttags]', 
+										'value' => $vars['entity']->defaulttags)
 										); 
 	?>
 </p>

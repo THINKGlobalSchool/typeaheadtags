@@ -9,7 +9,7 @@
  * @link http://www.thinkglobalschool.com/
  */
 
-// Get contacts from plugin settings
+// Get common tags from plugin settings
 $tags = elgg_get_plugin_setting('commontags','typeaheadtags');
 $tags = explode("\n", $tags);
 $tags_array = array();
@@ -19,18 +19,6 @@ foreach ($tags as $idx => $tag) {
 			$tags[$idx][$key]= trim($info);
 	}
 	$tags_array[$tags[$idx][0]] = $tags[$idx][1]; 
-}
-
-// Get student jobs 
-$jobs = get_plugin_setting('jobs', 'typeaheadtags');
-$jobs = explode("\n", $jobs);
-$jobs_array = array();
-foreach($jobs as $idx => $job) {
-	$jobs[$idx] = explode("-", $job);
-	foreach ($jobs[$idx] as $key => $info) {
-			$jobs[$idx][$key]= trim($info);
-	}
-	$jobs_array[$jobs[$idx][0]] = $jobs[$idx][1];
 }
 
 $top_tags_data = elgg_get_tags(array('limit' => 11));
@@ -59,14 +47,5 @@ foreach ($top_tags_data as $top_tag) {
 $top_content .= "</table>";
 
 $content .= elgg_view_module('aside', $top_title, $top_content, array('class' => 'typeaheadtags-module typeaheadtags-module-help'));
-
-$jobs_title = elgg_echo('typeaheadtags:label:jobs');
-$jobs_content = "<table>";
-foreach ($jobs_array as $tag => $desc) {
-	$jobs_content .=  "<tr><td><span class='tag-name'><a class='typeaheadtags-add-tag'>$tag</a><span class='tag-description'>$desc</span></span></td></tr>";
-}
-$jobs_content .= "</table>";
-
-$content .= elgg_view_module('aside', $jobs_title, $jobs_content, array('class' => 'typeaheadtags-module typeaheadtags-module-help'));
 
 echo elgg_view_module('featured', $title, $content, array('class' => 'typeaheadtags-module'));

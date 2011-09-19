@@ -8,6 +8,9 @@
  * @copyright THINK Global School 2010
  * @link http://www.thinkglobalschool.com/
  * 
+ * OVERRIDES:
+ * input/tags - to include default tags
+ * 
  * Includes the autosuggest jQuery plugin: 
  * http://code.drewwilson.com/entry/autosuggest-jquery-plugin
  * 
