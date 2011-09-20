@@ -15,7 +15,7 @@ $english = array(
 	// Labels 
 	'typeaheadtags:label:help' => 'Tag Suggestions (Click below to add tags)',
 	'typeaheadtags:label:commontags' => 'Common Tags',
-	'typeaheadtags:label:toptags' => 'Top Tags',
+	'typeaheadtags:label:toptags' => 'Popular Tags',
 	'typeaheadtags:label:defaulttags' => 'Default Tags',
 	'typeaheadtags:label:standardtitle' => 'Standard Tags',
 	

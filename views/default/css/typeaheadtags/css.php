@@ -52,12 +52,12 @@ div.typeaheadtags-module .elgg-body {
 
 div.typeaheadtags-module-standard {
 	float: left;
-	width: 400px;
+	width: 300px;
 }
 
 div.typeaheadtags-module-help {
 	float: right;
-	width: 200px;
+	width: 300;
 	margin-right: 5px;
 }
 
@@ -81,36 +81,4 @@ span.tag-name a:hover {
 
 .tag-error {
 	border: 3px solid Red !important;
-}
-
-/* Tooltips */
-
-span.tag-name {
-	position: relative;   /* this is key */
- 	//cursor: help;
-}
-
-span.tag-name span.tag-description {
-	display: none;        /* so is this */
-}
-
-span.tag-name:hover {
-	cursor: help;
-}
-
-span.tag-name:hover span.tag-description {
-	font-weight: bold;
-	font-size: 10px;
-	display: block;
-	z-index: 7001;
-	position: absolute;
-	top: 2em;
-	left: 45px;
-	width: auto;
-	min-width: 150px;
-	padding: 3px 7px 4px 6px;
-	border: 1px solid #777;
-	background-color: #ffffff;
-	text-align: left;
-	color: #000;
 }

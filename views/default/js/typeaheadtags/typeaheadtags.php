@@ -22,6 +22,17 @@ elgg.typeaheadtags.defaultTags = '<?php echo $tags; ?>';
 elgg.typeaheadtags.tagsURL = elgg.get_site_url() + 'typeaheadtags/search';
 
 elgg.typeaheadtags.init = function() {	
+	
+	// Init tooltips
+	$('.typeaheadtag-tooltip').tipTip({
+		delay           : 0,
+		defaultPosition : 'right',
+		fadeIn          : 25,
+		fadeOut         : 300,
+		edgeOffset      : 3
+	});
+	
+	
 	// Which object field to use for tags
 	var objProp = "tag";
 		

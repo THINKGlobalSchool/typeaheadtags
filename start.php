@@ -23,6 +23,18 @@ elgg_register_event_handler('init', 'system', 'typeaheadtags_init');
 function typeaheadtags_init() {
 	global $CONFIG;
 	
+	// Register simplecache views for tipTip
+	elgg_register_simplecache_view('js/tiptip');
+	elgg_register_simplecache_view('css/tiptip');
+	
+	// Register CSS for tiptip
+	$t_css = elgg_get_simplecache_url('css', 'tiptip');
+	elgg_register_css('jquery.tiptip', $t_css);
+	
+	// Register JS for tiptip
+	$t_js = elgg_get_simplecache_url('js', 'tiptip');
+	elgg_register_js('jquery.tiptip', $t_js);
+	
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
 	elgg_register_js('elgg.typeaheadtags', $typeahead_js);
