@@ -69,10 +69,23 @@ elgg.typeaheadtags.init = function() {
 	
 	// Hide help box when clicking outside element
 	$('body').live('click', function(e) {
-		if (!$(e.target).hasClass('as-input') && !$(e.target).hasClass('as-selections') && !$(e.target).hasClass('as-selection-item')) {
+		if (!$(e.target).hasClass('as-input') 
+			&& !$(e.target).hasClass('as-selections') 
+			&& !$(e.target).hasClass('as-selection-item')
+			&& !$(e.target).hasClass('typeaheadtags-add-tag')) 
+		{
 			var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
 			$('.typeaheadtags-help-container').slideUp('fast');
 			$('.typeaheadtags-help-container').data('isHelpShowing', false);
+		}
+	});
+	
+	// Prevent help box from firing click events unless we're adding a tag or closing
+	$('.typeaheadtags-help-container').click(function(e){
+		if (!$(e.target).hasClass('typeaheadtags-add-tag') 
+			&& !$(e.target).hasClass('elgg-icon-delete')) 
+		{
+			e.stopPropagation();
 		}
 	});
 	
