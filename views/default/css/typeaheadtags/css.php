@@ -11,11 +11,11 @@
  */
 ?>
 
-li.typeaheadtags-help-button  span {
+li.typeaheadtags-help-button {
 	font-weight: bold;
 }
 
-li.typeaheadtags-help-button  span:hover {
+li.typeaheadtags-help-button:hover {
 	cursor: pointer;
 }
 
@@ -42,8 +42,17 @@ table#typeaheadtags-tags-list {
 	width: 30%;
 }
 
+div.typeaheadtags-module {
+	margin-top: 5px;
+}
+
 div.typeaheadtags-module .elgg-body {
 	overflow: visible;
+}
+
+div.typeaheadtags-module-standard {
+	float: left;
+	width: 400px;
 }
 
 div.typeaheadtags-module-help {
@@ -91,13 +100,14 @@ span.tag-name:hover {
 
 span.tag-name:hover span.tag-description {
 	font-weight: bold;
+	font-size: 10px;
 	display: block;
 	z-index: 7001;
 	position: absolute;
 	top: 2em;
-	left: 25px;
+	left: 45px;
 	width: auto;
-	min-width: 90px;
+	min-width: 150px;
 	padding: 3px 7px 4px 6px;
 	border: 1px solid #777;
 	background-color: #ffffff;

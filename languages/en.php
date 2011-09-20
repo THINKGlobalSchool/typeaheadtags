@@ -13,10 +13,11 @@
 $english = array(
 	
 	// Labels 
-	'typeaheadtags:label:help' => 'Recommended Tags',
+	'typeaheadtags:label:help' => 'Tag Suggestions (Click below to add tags)',
 	'typeaheadtags:label:commontags' => 'Common Tags',
 	'typeaheadtags:label:toptags' => 'Top Tags',
 	'typeaheadtags:label:defaulttags' => 'Default Tags',
+	'typeaheadtags:label:standardtitle' => 'Standard Tags',
 	
 	// Error
 	'typeaheadtags:error:missingtags' => 'You must supply at least one tag',

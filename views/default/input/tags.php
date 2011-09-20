@@ -48,4 +48,9 @@ if (is_array($vars['value'])) {
 }
 
 ?>
+<div class='elgg-input-tags-parent'>
 <input type="text" <?php echo elgg_format_attributes($vars); ?> />
+<?php
+echo elgg_view('typeaheadtags/tag_help');
+?>
+</div>
