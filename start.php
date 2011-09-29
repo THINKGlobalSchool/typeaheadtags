@@ -67,6 +67,9 @@ function typeaheadtags_init() {
 	
 	// Page handler for tags search endpoint
 	elgg_register_page_handler('typeaheadtags', 'typeaheadtags_page_handler');
+	
+	// Extend composer view to trigger JS
+	elgg_extend_view('composer/extend', 'typeaheadtags/composer');
 
 	return true;
 }

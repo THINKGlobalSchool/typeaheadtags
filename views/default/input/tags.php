@@ -29,7 +29,8 @@ if (isset($vars['entity'])) {
 
 $vars = array_merge($defaults, $vars);
 
-if (!isset($vars['value'])) {
+
+if (!isset($vars['value']) || empty($vars['value'])) {
 	$vars['value'] = $default_tags;
 }
 

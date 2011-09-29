@@ -37,31 +37,35 @@ elgg.typeaheadtags.init = function() {
 	var objProp = "tag";
 		
 	// Loop over each tag input (possible there are more than one)
-	$('.elgg-input-tags').each(function() {		
-		// Set up autosuggest on each input
-		$(this).autoSuggest(elgg.typeaheadtags.tagsURL, 
-			{
-				preFill: $(this).val(), // Prefill with original value, if any
-				minChars: 1,
-				startText: "",
-				neverSubmit: true,
-				selectedItemProp: objProp, 
-				searchObjProps: objProp,
-				selectedValuesProp: objProp,
-			}
-		);
+	$('.elgg-input-tags').each(function() {	
+		// Don't re-init already initted tag inputs
+		if (!$(this).data('typeaheadtags_initted')) {	
+			$(this).data('typeaheadtags_initted', true);	
+			// Set up autosuggest on each input
+			$(this).autoSuggest(elgg.typeaheadtags.tagsURL, 
+				{
+					preFill: $(this).val(), // Prefill with original value, if any
+					minChars: 1,
+					startText: "",
+					neverSubmit: true,
+					selectedItemProp: objProp, 
+					searchObjProps: objProp,
+					selectedValuesProp: objProp,
+				}
+			);
 		
-		// Add help button
-		$(this).closest('.as-selections').prepend("<li class='as-selection-item typeaheadtags-help-button'>?</li>");
+			// Add help button
+			$(this).closest('.as-selections').prepend("<li class='as-selection-item typeaheadtags-help-button'>?</li>");
 		
-		// Get hidden input id
-		var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
+			// Get hidden input id
+			var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
 		
-		// Create help container
-		$module = $(this).closest('.elgg-input-tags-parent').find('.typeaheadtags-module');
+			// Create help container
+			$module = $(this).closest('.elgg-input-tags-parent').find('.typeaheadtags-module');
 		
-		$module
-			.attr('name', hidden_id);
+			$module
+				.attr('name', hidden_id);
+		}
 	}); 
 
 	$('.as-input').click(elgg.typeaheadtags.toggleHelp);
@@ -93,7 +97,7 @@ elgg.typeaheadtags.init = function() {
 
 	
 	// Close button on tag help module
-	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideToggle('fast');});
+	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideUp('fast');});
 	
 	// Make tags in the tag help box clickable
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
@@ -103,8 +107,9 @@ elgg.typeaheadtags.init = function() {
 	
 	// Prevent form submit if a tag input is empty
 	$('input.as-values').closest('form').submit(function(event){
+		$form = $(this);
 		// Check each input, excluding exceptions
-		$('input.as-values').each(function() {
+		$form.find('input.as-values').each(function() {
 			var name = $(this).attr('name');
 			
 			$(this).closest('.as-selections').removeClass('tag-error');

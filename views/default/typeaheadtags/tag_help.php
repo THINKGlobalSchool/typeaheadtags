@@ -36,9 +36,9 @@ $content .= "<script type='text/javascript'>
 	</script>
 ";
 
-$standard_content .= "<div style='width: 350px;'><ul>";
+$standard_content .= "<div style='width: 100%;'><ul>";
 foreach ($tags_array as $name => $desc) {
-	$standard_content .= "<li style='float: left; width: 175px;'><span class='tag-name'><a title='$desc' class='typeaheadtag-tooltip typeaheadtags-add-tag'>$name</a></span></li>";
+	$standard_content .= "<li style='float: left; width: 49%;'><span class='tag-name'><a title='$desc' class='typeaheadtag-tooltip typeaheadtags-add-tag'>$name</a></span></li>";
 }
 $standard_content .= "</ul><br style='clear: left;' /></div>";
 
@@ -47,9 +47,9 @@ $standard_title = elgg_echo('typeaheadtags:label:standardtitle');
 $content .= elgg_view_module('aside', $standard_title, $standard_content, array('class' => 'typeaheadtags-module-standard'));
 
 $top_title = elgg_echo('typeaheadtags:label:toptags');
-$top_content .= "<div style='width: 250px;'><ul>";
+$top_content .= "<div style='width: 100%;'><ul>";
 foreach ($top_tags_data as $top_tag) {
-	$top_content .= "<li style='float: left; width: 125px;'><span class='tag-name'><a class='typeaheadtags-add-tag'>$top_tag->tag</a></span></li>";
+	$top_content .= "<li style='float: left; width: 49%;'><span class='tag-name'><a class='typeaheadtags-add-tag'>$top_tag->tag</a></span></li>";
 }
 $top_content .= "</ul><br style='clear: left;' /></div>";
 
