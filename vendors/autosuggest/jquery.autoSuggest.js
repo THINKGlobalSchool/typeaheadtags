@@ -89,7 +89,7 @@
 				
 				var prefill_value = "";
 				if(typeof opts.preFill == "string"){
-					var vals = opts.preFill.split(",");					
+					var vals = opts.preFill.split(",");				
 					for(var i=0; i < vals.length; i++){
 						var v_data = {};
 						v_data[opts.selectedValuesProp] = vals[i];
@@ -117,7 +117,8 @@
 					input.val("");
 					var lastChar = prefill_value.substring(prefill_value.length-1);
 					if(lastChar != ","){ prefill_value = prefill_value+","; }
-					values_input.val(","+prefill_value);
+					//values_input.val(","+prefill_value);
+					values_input.val(prefill_value); // JEFF CHANGE - Don't need that leading ','
 					$("li.as-selection-item", selections_holder).addClass("blur").removeClass("selected");
 				}
 				input.after(values_input);

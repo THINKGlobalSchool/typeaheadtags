@@ -37,8 +37,7 @@ elgg.typeaheadtags.init = function() {
 	var objProp = "tag";
 		
 	// Loop over each tag input (possible there are more than one)
-	$('.elgg-input-tags').each(function() {
-		
+	$('.elgg-input-tags').each(function() {		
 		// Set up autosuggest on each input
 		$(this).autoSuggest(elgg.typeaheadtags.tagsURL, 
 			{
@@ -119,11 +118,6 @@ elgg.typeaheadtags.init = function() {
 				}
 			}
 		});
-	});
-	
-	// Pre-fill with default tags
-	$('input.as-values').each(function() {
-		var name = $(this).attr('name');
 	});
 }
 
