@@ -29,21 +29,22 @@ function typeaheadtags_init() {
 	
 	// Register CSS for tiptip
 	$t_css = elgg_get_simplecache_url('css', 'tiptip');
+	elgg_register_simplecache_view('css/tiptip');
 	elgg_register_css('jquery.tiptip', $t_css);
 	
 	// Register JS for tiptip
 	$t_js = elgg_get_simplecache_url('js', 'tiptip');
+	elgg_register_simplecache_view('js/tiptip');
 	elgg_register_js('jquery.tiptip', $t_js);
 	
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
+	elgg_register_simplecache_view('js/typeaheadtags/typeaheadtags');
 	elgg_register_js('elgg.typeaheadtags', $typeahead_js);
-		
-	// Register simplecache view for autosuggest
-	elgg_register_simplecache_view('js/typeaheadtags/autosuggest');
 	
 	// Register JS for autosuggest
 	$autosuggest_js = elgg_get_simplecache_url('js', 'typeaheadtags/autosuggest');
+	elgg_register_simplecache_view('js/typeaheadtags/autosuggest');
 	elgg_register_js('autosuggest', $autosuggest_js);
 	
 	// Allow default theme to be extended
@@ -52,6 +53,7 @@ function typeaheadtags_init() {
 		$autosuggest_css = "{$css_path}mod/typeaheadtags/vendors/autosuggest/autoSuggest.css";
 	} else {
 		$autosuggest_css = elgg_get_simplecache_url('css', 'typeaheadtags/autosuggest');
+		elgg_register_simplecache_view('css/typeaheadtags/autosuggest');
 	}
 
 	// Register Autosuggest CSS
@@ -59,6 +61,7 @@ function typeaheadtags_init() {
 	
 	// Load CSS
 	$t_css = elgg_get_simplecache_url('css', 'typeaheadtags/css');
+	elgg_register_simplecache_view('css/typeaheadtags/css');
 	elgg_register_css('elgg.typeaheadtags', $t_css);
 	elgg_load_css('elgg.typeaheadtags');
 	
