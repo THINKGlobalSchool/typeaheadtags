@@ -16,7 +16,7 @@
 	<?php echo elgg_echo('typeaheadtags:text:commontagssettings'); ?><br />
 	<?php 
 	echo elgg_view('input/plaintext', array(
-										'internalname' => 'params[commontags]', 
+										'name' => 'params[commontags]', 
 										'value' => $vars['entity']->commontags)
 										); 
 	?>
@@ -25,7 +25,7 @@
 	<label><?php echo elgg_echo('typeaheadtags:label:defaulttags'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[defaulttags]', 
+										'name' => 'params[defaulttags]', 
 										'value' => $vars['entity']->defaulttags)
 										); 
 	?>
