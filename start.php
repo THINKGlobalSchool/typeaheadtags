@@ -40,7 +40,7 @@ function typeaheadtags_init() {
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
 	elgg_register_simplecache_view('js/typeaheadtags/typeaheadtags');
-	elgg_register_js('elgg.typeaheadtags', $typeahead_js);
+	elgg_register_js('elgg.typeaheadtags', $typeahead_js, 'head', 502);
 	
 	// Register JS for autosuggest
 	$autosuggest_js = elgg_get_simplecache_url('js', 'typeaheadtags/autosuggest');
