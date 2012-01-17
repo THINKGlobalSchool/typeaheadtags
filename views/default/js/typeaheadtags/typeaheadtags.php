@@ -40,19 +40,28 @@ elgg.typeaheadtags.init = function() {
 	$('.elgg-input-tags').each(function() {	
 		// Don't re-init already initted tag inputs
 		if (!$(this).data('typeaheadtags_initted')) {	
-			$(this).data('typeaheadtags_initted', true);	
+			$(this).data('typeaheadtags_initted', true);
+			
+			// Autosuggest options array
+			var options = {
+				preFill: $(this).val(), // Prefill with original value, if any
+				minChars: 1,
+				startText: "",
+				neverSubmit: true,
+				selectedItemProp: objProp, 
+				searchObjProps: objProp,
+				selectedValuesProp: objProp,
+			}
+			
+			// Check for single select class
+			if ($(this).hasClass('typeaheadtags-single-select')) {
+				
+				options['selectionLimit'] = 2; 
+				//console.log(options);
+			}
+			
 			// Set up autosuggest on each input
-			$(this).autoSuggest(elgg.typeaheadtags.tagsURL, 
-				{
-					preFill: $(this).val(), // Prefill with original value, if any
-					minChars: 1,
-					startText: "",
-					neverSubmit: true,
-					selectedItemProp: objProp, 
-					searchObjProps: objProp,
-					selectedValuesProp: objProp,
-				}
-			);
+			$(this).autoSuggest(elgg.typeaheadtags.tagsURL, options);
 		
 			// Add help button
 			$(this).closest('.as-selections').prepend("<li class='as-selection-item typeaheadtags-help-button'>?</li>");
@@ -103,7 +112,7 @@ elgg.typeaheadtags.init = function() {
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
 	
 	// Need to ignore these ones
-	var exceptions = ['skills', 'interests', 'suggested_tags'];
+	var exceptions = ['skills', 'interests', 'suggested_tags', 'search'];
 	
 	// Prevent form submit if a tag input is empty
 	$('input.as-values').closest('form').submit(function(event){

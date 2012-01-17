@@ -29,8 +29,15 @@ if (isset($vars['entity'])) {
 
 $vars = array_merge($defaults, $vars);
 
+// Default tag exceptions
+$exceptions = array(
+	'skills', 
+	'interests', 
+	'suggested_tags', 
+	'search', 
+);
 
-if (!isset($vars['value']) || empty($vars['value'])) {
+if (!in_array($vars['name'], $exceptions) && (!isset($vars['value']) || empty($vars['value']))) {
 	$vars['value'] = $default_tags;
 }
 

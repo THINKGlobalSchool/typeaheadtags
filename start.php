@@ -35,7 +35,7 @@ function typeaheadtags_init() {
 	// Register JS for tiptip
 	$t_js = elgg_get_simplecache_url('js', 'tiptip');
 	elgg_register_simplecache_view('js/tiptip');
-	elgg_register_js('jquery.tiptip', $t_js);
+	elgg_register_js('jquery.tiptip', $t_js, 'head', 501);
 	
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
