@@ -218,4 +218,3 @@ elgg.typeaheadtags.addTag = function(e) {
 }
 
 elgg.register_hook_handler('init', 'system', elgg.typeaheadtags.init);
-//</script>
