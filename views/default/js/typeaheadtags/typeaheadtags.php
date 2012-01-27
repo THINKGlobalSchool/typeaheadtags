@@ -136,6 +136,15 @@ elgg.typeaheadtags.init = function() {
 }
 
 /**
+ * Helper function to unbind events as needed
+ */
+elgg.typeaheadtags.destroy = function(e) {
+	$('.typeaheadtags-help-button').die('click');
+	$('a.typeaheadtags-add-tag').die('click');
+	$('a.typeaheadtags-help-close').die('click');
+}
+
+/**
  * Show help div 
  */
 elgg.typeaheadtags.toggleHelp = function(e) {
