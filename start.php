@@ -87,15 +87,22 @@ function typeaheadtags_page_handler($page) {
 			//gatekeeper(); - Not sure if I need to prevent access..
 			$q = get_input('q');
 
+/*
 			// Only grab tags similar to the input
 			$wheres[] = "msv.string like '%$q%'";	
 
 			// Get site tags
 			$site_tags = elgg_get_tags(array(
-				'threshold' => 0, 
-				'limit' => 99999,
+				'threshold' => 1, 
+				'limit' => 15,
 				'wheres' => $wheres,
 			));
+*/			
+			$dbprefix = elgg_get_config('dbprefix');
+			
+			$query = "SELECT msv.string as tag FROM {$dbprefix}metadata md JOIN {$dbprefix}metastrings msv on msv.id = md.value_id  JOIN {$dbprefix}metastrings msn on md.name_id = msn.id  WHERE  msv.string like '%{$q}%' AND  msv.string != '' AND  (msn.string IN (\"tags\")) GROUP BY msv.string   LIMIT 15";
+
+			$site_tags = get_data($query);
 
 			$tags_array = array();
 			foreach ($site_tags as $site_tag) {
