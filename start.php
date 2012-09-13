@@ -111,6 +111,7 @@ function typeaheadtags_page_handler($page) {
 			echo elgg_view('typeaheadtags/tag_help');
 			break;
 	}
+	return TRUE;
 }
 
 /**
