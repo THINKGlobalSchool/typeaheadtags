@@ -209,15 +209,19 @@
 							break;
 						// JEFF CHANGES
 						case 13: // return
+							console.log('hi');
 							tab_press = false;
 							var active = $("li.active:first", results_holder);
 							if(active.length > 0){
 								active.click();
 								results_holder.hide();
+								$(active).removeClass('active'); // Un-activate the last active item
 							} else {
+								console.log('2');
 								tab_press = true;
 								var i_input = input.val().replace(/(,)/g, "");
 								if(i_input != "" && values_input.val().search(","+i_input+",") < 0 && i_input.length >= opts.minChars){	
+									console.log('3');
 									e.preventDefault();
 									var n_data = {};
 									n_data[opts.selectedItemProp] = i_input;
