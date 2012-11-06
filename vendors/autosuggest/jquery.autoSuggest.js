@@ -44,7 +44,9 @@
 		  	selectionClick: function(elem){},
 		  	selectionAdded: function(elem){
 				// JEFF CHANGE - Increasing width of elements slightly
-				$(elem).width($(elem).width() + 0.5);
+				if ($(elem).width() != 0) {
+					$(elem).width($(elem).width() + 0.5);
+				}
 			},
 		  	selectionRemoved: function(elem){ elem.remove(); },
 		  	formatList: false, //callback function
