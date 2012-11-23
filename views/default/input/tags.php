@@ -35,6 +35,7 @@ $exceptions = array(
 	'interests', 
 	'suggested_tags', 
 	'search', 
+	'custom'
 );
 
 if (!in_array($vars['name'], $exceptions) && (!isset($vars['value']) || empty($vars['value']))) {
