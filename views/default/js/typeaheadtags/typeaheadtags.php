@@ -103,7 +103,6 @@ elgg.typeaheadtags.init = function() {
 	
 	// Make help button clickable
 	$('.typeaheadtags-help-button').live('click', elgg.typeaheadtags.toggleHelp);
-
 	
 	// Close button on tag help module
 	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideUp('fast');});
@@ -111,29 +110,15 @@ elgg.typeaheadtags.init = function() {
 	// Make tags in the tag help box clickable
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
 	
-	// Need to ignore these ones
-	var exceptions = ['skills', 'interests', 'suggested_tags', 'search', 'custom'];
-	
 	// Prevent form submit if a tag input is empty
 	$('input.as-values').closest('form').submit(function(event){
 		$form = $(this);
-		// Check each input, excluding exceptions
-		$form.find('input.as-values').each(function() {
-			var name = $(this).attr('name');
-			
-			$(this).closest('.as-selections').removeClass('tag-error');
-			
-			if ($.inArray(name, exceptions) == -1) {
-				var value = $(this).val();
-				if (!value || $.trim(value) == ',') {
-					event.preventDefault();
-					$(this).closest('.as-selections').addClass('tag-error');
-					elgg.register_error(elgg.echo('typeaheadtags:error:missingtags'));
-				}
-			}
-		});
+		if (!elgg.typeaheadtags.checkFormTags($form)) {
+			event.preventDefault();
+		}
 	});
 }
+
 
 /**
  * Helper function to unbind events as needed
@@ -226,4 +211,48 @@ elgg.typeaheadtags.addTag = function(e) {
 	//opts.selectionAdded.call(this, org_li.prev());	
 }
 
+/**
+ * Check a form for valid tags
+ */
+ elgg.typeaheadtags.checkFormTags = function($form) {
+ 	// Need to ignore these ones
+	var exceptions = ['skills', 'interests', 'suggested_tags', 'search', 'custom'];
+
+	var error = false;
+
+	// Check each input, excluding exceptions
+	$form.find('input.as-values').each(function() {
+		var name = $(this).attr('name');
+		
+		$(this).closest('.as-selections').removeClass('tag-error');
+		
+		if ($.inArray(name, exceptions) == -1) {
+			var value = $(this).val();
+			if (!value || $.trim(value) == ',') {
+				error = true;
+				$(this).closest('.as-selections').addClass('tag-error');
+				elgg.register_error(elgg.echo('typeaheadtags:error:missingtags'));
+			}
+		}
+	});
+
+	// If we have an error, return false
+	if (error) {
+		return false;
+	} else {
+		return true;
+	}
+ }
+
+ /**
+  * Allow other plugins to trigger a hook to manually check forms for tags
+  */
+ elgg.typeaheadtags.checkTagsListener = function(hook, type, params, value) {
+ 	if (hook == 'checkTags' && type == 'typeaheadtags' && params.form) {
+ 		return elgg.typeaheadtags.checkFormTags(params.form);
+ 	}
+ 	return true;
+ }
+
+elgg.register_hook_handler('checkTags', 'typeaheadtags', elgg.typeaheadtags.checkTagsListener);
 elgg.register_hook_handler('init', 'system', elgg.typeaheadtags.init);
