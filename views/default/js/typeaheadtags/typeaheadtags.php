@@ -108,7 +108,7 @@ elgg.typeaheadtags.init = function() {
 	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideUp('fast');});
 	
 	// Make tags in the tag help box clickable
-	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTag);
+	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTagFromLink);
 	
 	// Prevent form submit if a tag input is empty
 	$('input.as-values').closest('form').submit(function(event){
@@ -152,28 +152,30 @@ elgg.typeaheadtags.toggleHelp = function(e) {
 }
 
 /**
- * Programatically add an item to the as input
- * - This is a bit hacky as the original code doesn't easily allow 
- * adding items programatically. One issue is that the callback events
- * don't work (I'm not using them anyway)
+ * Add a tag to the tag input from a link
  */
-elgg.typeaheadtags.addTag = function(e) {
+elgg.typeaheadtags.addTagFromLink = function(e) {
 	// Get the value input
 	var values_input = $('input#' + $(this).closest('div.typeaheadtags-help-container').attr('name'));
 
 	// This is the tag we'll be adding
 	var name = $(this).html();
-	
+
+	elgg.typeaheadtags.addTag(name, values_input);
+}
+
+// Generic add tag function, need to supply tag content and input
+elgg.typeaheadtags.addTag = function(tag, input) {
 	// Add the tag to the value input
-	values_input.val(values_input.val() + name + ",");
+	input.val(input.val() + tag + ",");
 	
 	// Create item (the item to be displayed)
-	var item = $('<li class="as-selection-item" id="as-selection-'+ name +'"></li>').click(function(){
+	var item = $('<li class="as-selection-item" id="as-selection-'+ tag +'"></li>').click(function(){
 			// selectionClick callback, won't work in this context
 			//opts.selectionClick.call(this, $(this));
 			
 			// Get selections container
-			var selections_holder = $(values_input).closest('.as-selections');
+			var selections_holder = $(input).closest('.as-selections');
 			
 			// Remove 'selected' class from all items
 			selections_holder.children().removeClass("selected");
@@ -184,11 +186,11 @@ elgg.typeaheadtags.addTag = function(e) {
 		}).mousedown(function(){
 			//nothing..
 		});
-		
+
 	// Create the close button
 	var close = $('<a class="as-close">&times;</a>').click(function(){
 			// Remove value
-			values_input.val(values_input.val().replace(name + ",", ""));
+			input.val(input.val().replace(tag + ",", ""));
 			
 			// Remove the item
 			item.remove();
@@ -202,13 +204,10 @@ elgg.typeaheadtags.addTag = function(e) {
 		});
 		
 	// Get the original li (weird name..)	
-	var org_li = $(values_input).closest('.as-original');
+	var org_li = $(input).closest('.as-original');
 		
 	// Add the item before the original li, with the close button
-	org_li.before(item.html(name).prepend(close));
-	
-	// selectionAdded callback, also won't work
-	//opts.selectionAdded.call(this, org_li.prev());	
+	org_li.before(item.html(tag).prepend(close));	
 }
 
 /**
