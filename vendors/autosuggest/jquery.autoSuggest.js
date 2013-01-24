@@ -45,7 +45,7 @@
 		  	selectionAdded: function(elem){
 				// JEFF CHANGE - Increasing width of elements slightly
 				if ($(elem).width() != 0) {
-					$(elem).width($(elem).width() + 0.5);
+					$(elem).width($(elem).width() + 1);
 				}
 			},
 		  	selectionRemoved: function(elem){ elem.remove(); },
