@@ -41,11 +41,14 @@ function typeaheadtags_init() {
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
 	elgg_register_simplecache_view('js/typeaheadtags/typeaheadtags');
 	elgg_register_js('elgg.typeaheadtags', $typeahead_js, 'head', 502);
-	
+	elgg_load_js('elgg.typeaheadtags');
+
+
 	// Register JS for autosuggest
 	$autosuggest_js = elgg_get_simplecache_url('js', 'typeaheadtags/autosuggest');
 	elgg_register_simplecache_view('js/typeaheadtags/autosuggest');
 	elgg_register_js('autosuggest', $autosuggest_js);
+	elgg_load_js('autosuggest');
 	
 	// Allow default theme to be extended
 	if (!elgg_view_exists('css/typeaheadtags/autosuggest')) {
@@ -58,6 +61,7 @@ function typeaheadtags_init() {
 
 	// Register Autosuggest CSS
 	elgg_register_css('autosuggest', $autosuggest_css);
+	elgg_load_css('autosuggest');
 	
 	// Load CSS
 	$t_css = elgg_get_simplecache_url('css', 'typeaheadtags/css');
@@ -65,8 +69,8 @@ function typeaheadtags_init() {
 	elgg_register_css('elgg.typeaheadtags', $t_css);
 	elgg_load_css('elgg.typeaheadtags');
 	
-	// Register for view plugin hook 
-	elgg_register_plugin_hook_handler('view', 'input/tags', 'typeaheadtags_input_handler');
+	// Register for tidypics inline tag edit hook
+	elgg_register_plugin_hook_handler('inline_edit_tags', 'tidypics', 'typeaheadtags_tidypics_tag_edit_handler');
 	
 	// Page handler for tags search endpoint
 	elgg_register_page_handler('typeaheadtags', 'typeaheadtags_page_handler');
@@ -117,21 +121,22 @@ function typeaheadtags_page_handler($page) {
 }
 
 /**
- * Plugin hook handler to load autosuggest and typeahead tag JS when 
- * the the input/tags view is loaded
+ * Hook into tidypics inline tag edit handler to allow typeahead tags
  *
- * @param sting  $hook   view
- * @param string $type   input/tags
+ * @param sting  $hook   Hook
+ * @param string $type   Type
  * @param mixed  $value  Value
  * @param mixed  $params Params
  *
  * @return array
  */
-function typeaheadtags_input_handler($hook, $type, $value, $params) {
-	elgg_load_js('autosuggest');
-	elgg_load_css('autosuggest');
-	elgg_load_js('elgg.typeaheadtags');
-	return $value;
+function typeaheadtags_tidypics_tag_edit_handler($hook, $type, $value, $params) {
+	return elgg_view('input/tags', array(
+		'name' => '_tp_edit_inline_tags',
+		'value' => $params['image']->tags,
+		'disable_help' => TRUE,
+		'class' => 'tidypics-lightbox-edit-tags hidden',
+	));
 }
 
 

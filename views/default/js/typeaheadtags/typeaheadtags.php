@@ -21,17 +21,20 @@ elgg.typeaheadtags.defaultTags = '<?php echo $tags; ?>';
 // URL for tag search
 elgg.typeaheadtags.tagsURL = elgg.get_site_url() + 'typeaheadtags/search';
 
+elgg.typeaheadtags.help_enabled = false;
+
 elgg.typeaheadtags.init = function() {	
 	
-	// Init tooltips
-	$('.typeaheadtag-tooltip').tipTip({
-		delay           : 0,
-		defaultPosition : 'right',
-		fadeIn          : 25,
-		fadeOut         : 300,
-		edgeOffset      : 3
-	});
-	
+	if (typeof(tipTip) !== 'undefined') {
+		// Init tooltips
+		$('.typeaheadtag-tooltip').tipTip({
+			delay           : 0,
+			defaultPosition : 'right',
+			fadeIn          : 25,
+			fadeOut         : 300,
+			edgeOffset      : 3
+		});
+	}
 	
 	// Which object field to use for tags
 	var objProp = "tag";
@@ -63,17 +66,19 @@ elgg.typeaheadtags.init = function() {
 			// Set up autosuggest on each input
 			$(this).autoSuggest(elgg.typeaheadtags.tagsURL, options);
 		
-			// Add help button
-			$(this).closest('.as-selections').prepend("<li class='as-selection-item typeaheadtags-help-button'>?</li>");
-		
-			// Get hidden input id
-			var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
-		
-			// Create help container
-			$module = $(this).closest('.elgg-input-tags-parent').find('.typeaheadtags-module');
-		
-			$module
-				.attr('name', hidden_id);
+			// Add help button if enabled
+			if (elgg.typeaheadtags.help_enabled) {
+				$(this).closest('.as-selections').prepend("<li class='as-selection-item typeaheadtags-help-button'>?</li>");
+
+				// Get hidden input id
+				var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
+			
+				// Create help container
+				$module = $(this).closest('.elgg-input-tags-parent').find('.typeaheadtags-module');
+			
+				$module
+					.attr('name', hidden_id);
+			}
 		}
 	}); 
 
@@ -127,6 +132,7 @@ elgg.typeaheadtags.destroy = function(e) {
 	$('.typeaheadtags-help-button').die('click');
 	$('a.typeaheadtags-add-tag').die('click');
 	$('a.typeaheadtags-help-close').die('click');
+	$('.elgg-input-tags').die();
 }
 
 /**
@@ -253,5 +259,54 @@ elgg.typeaheadtags.addTag = function(tag, input) {
  	return true;
  }
 
+/**
+ * Hook into tidypics inline tag edit show to set up typeaheadtags
+ */
+elgg.typeaheadtags.tidypicsTagEditShow = function(hook, type, params, value) {
+	if (params.input && params.input.attr('name') == '_tp_edit_inline_tags') {
+		elgg.typeaheadtags.init();
+		// Show the tagging parent container
+		$('._tp-can-edit .elgg-input-tags-parent').show();
+
+		// Remove position static to fix results positioning
+		$('.tidypics-lightbox-photo-tags').css('position', 'static');
+
+		// Show and focus the tag input
+		$('._tp-can-edit .elgg-input-tags-parent input[name=_tp_edit_inline_tags-orig]').show().focus();
+	}
+	return value;
+}
+
+/**
+ * Hook into tidypics inline tag edit hide to handle hiding the typeaheadtags input
+ */
+elgg.typeaheadtags.tidypicsTagEditHide = function(hook, type, params, value) {
+	if (params.input && params.input.attr('name').indexOf('_tp_edit_inline_tags') == 0) {
+		// Restore relative positioning
+		$('.tidypics-lightbox-photo-tags').css('position', 'relative');
+
+		// Hide the tagging parent container
+		$('._tp-can-edit .elgg-input-tags-parent').hide();
+	}
+	return value;
+}
+
+/**
+ * Hook into tidypics inline tag edit to get the typeaheadtags value
+ */
+elgg.typeaheadtags.tidypicsTagGetValue = function(hook, type, params, value) {
+	if (params.input && params.input.attr('name').indexOf('_tp_edit_inline_tags') == 0) {
+		var value = $('input[name=_tp_edit_inline_tags]').val();
+		if (!value) {
+			elgg.register_error(elgg.echo('typeaheadtags:error:missingtags'));
+		}
+		return value;
+	}	
+	return true;
+}
+
 elgg.register_hook_handler('checkTags', 'typeaheadtags', elgg.typeaheadtags.checkTagsListener);
 elgg.register_hook_handler('init', 'system', elgg.typeaheadtags.init);
+elgg.register_hook_handler('photoLightboxInlineEditInputShow', 'tidypics', elgg.typeaheadtags.tidypicsTagEditShow);
+elgg.register_hook_handler('photoLightboxInlineEditInputHide', 'tidypics', elgg.typeaheadtags.tidypicsTagEditHide);
+elgg.register_hook_handler('photoLightboxInlineEditGetValue', 'tidypics', elgg.typeaheadtags.tidypicsTagGetValue);

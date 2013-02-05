@@ -4,9 +4,10 @@
  * Displays a tag input field
  *
  * @uses $vars['disabled']
- * @uses $vars['class']    Additional CSS class
- * @uses $vars['value']    Array of tags or a string
- * @uses $vars['entity']   Optional. Entity whose tags are being displayed (metadata ->tags)
+ * @uses $vars['class']         Additional CSS class
+ * @uses $vars['value']         Array of tags or a string
+ * @uses $vars['entity']        Optional. Entity whose tags are being displayed (metadata ->tags)
+ * @uses $vars['disable_help']  Optional. Disable tag help
  */
 
 if (isset($vars['class'])) {
@@ -14,6 +15,8 @@ if (isset($vars['class'])) {
 } else {
 	$vars['class'] = "elgg-input-tags";
 }
+
+$disable_help = elgg_extract('disable_help', $vars, FALSE);
 
 $default_tags = string_to_tag_array(elgg_get_plugin_setting('defaulttags','typeaheadtags'));
 
@@ -35,7 +38,8 @@ $exceptions = array(
 	'interests', 
 	'suggested_tags', 
 	'search', 
-	'custom'
+	'custom',
+	'photos-listing-tag',
 );
 
 if (!in_array($vars['name'], $exceptions) && (!isset($vars['value']) || empty($vars['value']))) {
@@ -60,6 +64,11 @@ if (is_array($vars['value'])) {
 <div class='elgg-input-tags-parent'>
 <input type="text" <?php echo elgg_format_attributes($vars); ?> />
 <?php
-echo elgg_view('typeaheadtags/tag_help');
+if (!$disable_help) {
+	echo elgg_view('typeaheadtags/tag_help');
+	echo "<script type='text/javascript'>
+		elgg.typeaheadtags.help_enabled = true;
+	</script>";
+}
 ?>
 </div>

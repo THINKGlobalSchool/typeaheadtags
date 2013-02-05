@@ -82,3 +82,18 @@ span.tag-name a:hover {
 .tag-error {
 	border: 3px solid Red !important;
 }
+
+._tp-can-edit .elgg-input-tags-parent {
+	display: none;
+}
+
+/* Tidypics lightbox CSS */
+.tidypics-lightbox-container .tidypics-lightbox-edit-tags {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.tidypics-lightbox-photo-tags._tp-can-edit .elgg-input-tags-parent {
+	margin-bottom: 7px;
+	margin-top: 3px;
+}
