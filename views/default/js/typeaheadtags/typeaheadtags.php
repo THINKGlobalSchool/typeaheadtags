@@ -23,7 +23,19 @@ elgg.typeaheadtags.tagsURL = elgg.get_site_url() + 'typeaheadtags/search';
 
 elgg.typeaheadtags.help_enabled = false;
 
-elgg.typeaheadtags.init = function() {	
+elgg.typeaheadtags.init = function() {
+
+	$(window).scroll(function(){
+		$help = $('.typeaheadtags-help-container');	
+		if ($help.is(':visible') && $help.parent().find('[data-hoverHelp="1"]').length) {
+			$help.position({
+				my: 'right top',
+				at: 'right bottom',
+				of: $help.parent(),
+				collision: 'none none'
+			});
+		}
+	});
 	
 	if (typeof(tipTip) !== 'undefined') {
 		// Init tooltips
@@ -44,6 +56,8 @@ elgg.typeaheadtags.init = function() {
 		// Don't re-init already initted tag inputs
 		if (!$(this).data('typeaheadtags_initted')) {	
 			$(this).data('typeaheadtags_initted', true);
+
+			var $_this = $(this);
 			
 			// Autosuggest options array
 			var options = {
@@ -54,6 +68,15 @@ elgg.typeaheadtags.init = function() {
 				selectedItemProp: objProp, 
 				searchObjProps: objProp,
 				selectedValuesProp: objProp,
+				// Add hooks for add/remove events
+				selectionAdded: function(elem) {
+					elgg.trigger_hook('selection_added', 'typeaheadtags', {'input': $_this}, elem);
+					return true;
+				},
+				selectionRemoved: function(elem) {
+					elgg.trigger_hook('selection_removed', 'typeaheadtags', {'input': $_this}, elem);
+					elem.remove();
+				}
 			}
 			
 			// Check for single select class
@@ -81,21 +104,12 @@ elgg.typeaheadtags.init = function() {
 			}
 		}
 	}); 
-
-	$('.as-input').click(elgg.typeaheadtags.toggleHelp);
+	
+	// Bind click event for typeahead tags inputs
+	$('.as-input').live('click', elgg.typeaheadtags.toggleHelp);
 	
 	// Hide help box when clicking outside element
-	$('body').live('click', function(e) {
-		if (!$(e.target).hasClass('as-input') 
-			&& !$(e.target).hasClass('as-selections') 
-			&& !$(e.target).hasClass('as-selection-item')
-			&& !$(e.target).hasClass('typeaheadtags-add-tag')) 
-		{
-			var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
-			$('.typeaheadtags-help-container').slideUp('fast');
-			$('.typeaheadtags-help-container').data('isHelpShowing', false);
-		}
-	});
+	$('body').live('click', elgg.typeaheadtags.toggleHelp);
 	
 	// Prevent help box from firing click events unless we're adding a tag or closing
 	$('.typeaheadtags-help-container').click(function(e){
@@ -110,7 +124,7 @@ elgg.typeaheadtags.init = function() {
 	$('.typeaheadtags-help-button').live('click', elgg.typeaheadtags.toggleHelp);
 	
 	// Close button on tag help module
-	$('a.typeaheadtags-help-close').live('click', function() {$(this).closest('.typeaheadtags-help-container').slideUp('fast');});
+	$('a.typeaheadtags-help-close').live('click', elgg.typeaheadtags.toggleHelp);
 	
 	// Make tags in the tag help box clickable
 	$('a.typeaheadtags-add-tag').live('click', elgg.typeaheadtags.addTagFromLink);
@@ -135,26 +149,50 @@ elgg.typeaheadtags.destroy = function(e) {
 	$('.elgg-input-tags').die();
 }
 
+
 /**
  * Show help div 
  */
-elgg.typeaheadtags.toggleHelp = function(e) {
-	e.preventDefault();	
-	
+elgg.typeaheadtags.toggleHelp = function(event) {
+	// Find the help container id
 	var hidden_id = $(this).closest('.as-selections').find('input.as-values').attr('id');
 	
-	if ($(e.target).hasClass('typeaheadtags-help-button') && !$('div[name="' + hidden_id + '"]').data('isHelpShowing')) {
-		$('div[name="' + hidden_id + '"]').slideDown('fast');
-		$('div[name="' + hidden_id + '"]').data('isHelpShowing', true);
-	} else {
-		if (($(e.target).hasClass('as-input') || $(e.target).hasClass('as-selections'))) {
-			$('div[name="' + hidden_id + '"]').slideDown('fast');
-			$('div[name="' + hidden_id + '"]').data('isHelpShowing', true);
-		} else {
-			$('div[name="' + hidden_id + '"]').slideUp('fast');
-			$('div[name="' + hidden_id + '"]').data('isHelpShowing', false);
+	// Get the help container
+	var $help = $('div[name="' + hidden_id + '"]');
+
+	var $parent = $help.parent();
+
+	if (($(event.target).hasClass('typeaheadtags-help-button') && !$help.data('isHelpShowing'))
+		|| ($(event.target).hasClass('as-input') || $(event.target).hasClass('as-selections'))) {
+		if ($help.length) {
+			// Hide any other help containers
+			$('.typeaheadtags-help-container').fadeOut('fast');
+			$help.data('isHelpShowing', true);
+			if ($parent.find('[data-hoverHelp="1"]').length) {
+				var options = {
+					my: 'right top',
+					at: 'right bottom',
+					of: $parent,
+					collision: 'none none'
+				}
+
+				$help.css({
+					'position': 'fixed',
+					'z-index': 9999
+				}).slideDown('fast').position(options);
+			} else {
+				$help.slideDown('fast');
+			}
+
+			
 		}
-	}
+	} else {
+		if (!$help.length) {
+			$help = $('.typeaheadtags-help-container');
+		}
+		$help.data('isHelpShowing', false);
+		$help.slideUp('fast');
+	}	
 }
 
 /**
@@ -202,7 +240,7 @@ elgg.typeaheadtags.addTag = function(tag, input) {
 			item.remove();
 			
 			// selectionclick callback, won't work
-			//opts.selectionRemoved.call(this, item);
+			elgg.trigger_hook('selection_removed', 'typeaheadtags', {'input': input}, item);
 			
 			//input_focus = true;
 			//input.focus();
@@ -210,10 +248,14 @@ elgg.typeaheadtags.addTag = function(tag, input) {
 		});
 		
 	// Get the original li (weird name..)	
+
+
 	var org_li = $(input).closest('.as-original');
 		
 	// Add the item before the original li, with the close button
-	org_li.before(item.html(tag).prepend(close));	
+	org_li.before(item.html(tag).prepend(close));
+
+	elgg.trigger_hook('selection_added', 'typeaheadtags', {'input': input}, item);
 }
 
 /**
@@ -221,7 +263,7 @@ elgg.typeaheadtags.addTag = function(tag, input) {
  */
  elgg.typeaheadtags.checkFormTags = function($form) {
  	// Need to ignore these ones
-	var exceptions = ['skills', 'interests', 'suggested_tags', 'search', 'custom'];
+	var exceptions = ['skills', 'interests', 'suggested_tags', 'search', 'custom', 'categories'];
 
 	var error = false;
 

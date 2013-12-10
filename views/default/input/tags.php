@@ -40,7 +40,11 @@ $exceptions = array(
 	'search', 
 	'custom',
 	'photos-listing-tag',
+	'categories'
 );
+
+// @TODO use this everywhere :D
+$exceptions = elgg_trigger_plugin_hook('get_exceptions', 'typeaheadtags', null, $exceptions);
 
 if (!in_array($vars['name'], $exceptions) && (!isset($vars['value']) || empty($vars['value']))) {
 	$vars['value'] = $default_tags;

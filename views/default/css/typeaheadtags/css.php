@@ -35,6 +35,9 @@ li.typeaheadtags-help-button:hover {
 div.typeaheadtags-help-container {
 	margin-top: 5px;
 	display: none;
+	border: 1px solid #777;
+	box-shadow: 1px 1px 1px #666;
+	max-width: 748px;
 }
 
 table#typeaheadtags-tags-list {

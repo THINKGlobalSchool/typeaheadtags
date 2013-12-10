@@ -53,6 +53,6 @@ foreach ($top_tags_data as $top_tag) {
 }
 $top_content .= "</ul><br style='clear: left;' /></div>";
 
-$content .= elgg_view_module('aside', $top_title, $top_content, array('class' => 'typeaheadtags-module typeaheadtags-module-help'));
+$content .= elgg_view_module('aside', $top_title, $top_content, array('class' => 'typeaheadtags-module-standard'));
 
 echo elgg_view_module('featured', $title, $content, array('class' => 'typeaheadtags-help-container clearfix hidden typeaheadtags-module'));
