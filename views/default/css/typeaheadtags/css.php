@@ -11,6 +11,11 @@
  */
 ?>
 
+@media screen and (-webkit-min-device-pixel-ratio: 0)
+ul.as-selections {
+border-top-width: 2px;
+}
+
 li.typeaheadtags-help-button {
 	font-weight: bold;
 }

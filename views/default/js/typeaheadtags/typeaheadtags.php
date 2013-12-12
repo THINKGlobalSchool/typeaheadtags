@@ -178,7 +178,7 @@ elgg.typeaheadtags.toggleHelp = function(event) {
 
 				$help.css({
 					'position': 'fixed',
-					'z-index': 9999
+					'z-index': 8000
 				}).slideDown('fast').position(options);
 			} else {
 				$help.slideDown('fast');
