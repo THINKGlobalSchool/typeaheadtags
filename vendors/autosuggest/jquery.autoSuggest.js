@@ -99,6 +99,9 @@
 						var v_data = {};
 						v_data[opts.selectedValuesProp] = vals[i];
 						if(vals[i] != ""){
+							// JEFF HACK (add prefill attr)
+							v_data.isPreFill = true;
+							// END JEFF HACK
 							add_selected_item(v_data, "000"+i);	
 						}		
 					}
@@ -112,6 +115,9 @@
 							var new_v = opts.preFill[i][opts.selectedValuesProp];
 							if(new_v == undefined){ new_v = ""; }
 							prefill_value = prefill_value+new_v+",";
+							// JEFF HACK (add prefill attr)
+							opts.preFill[i].isPreFill = true;
+							// END JEFF HACK
 							if(new_v != ""){
 								add_selected_item(opts.preFill[i], "000"+i);	
 							}		
@@ -377,6 +383,11 @@
 							return false;
 						});
 					org_li.before(item.html(data[opts.selectedItemProp]).prepend(close));
+					// JEFF HACK (add prefill attr)
+					if (data.isPreFill) {
+						org_li.prev().attr('data-isprefill', 1);
+					}
+					// END JEFF HACK
 					opts.selectionAdded.call(this, org_li.prev());	
 				}
 				
