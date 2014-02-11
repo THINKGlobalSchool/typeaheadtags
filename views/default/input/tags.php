@@ -36,8 +36,7 @@ $vars = array_merge($defaults, $vars);
 $exceptions = array(
 	'skills', 
 	'interests', 
-	'suggested_tags', 
-	'search', 
+	'suggested_tags',
 	'custom',
 	'photos-listing-tag',
 	'categories'

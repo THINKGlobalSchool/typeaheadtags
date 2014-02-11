@@ -16,17 +16,17 @@
 	<?php echo elgg_echo('typeaheadtags:text:commontagssettings'); ?><br />
 	<?php 
 	echo elgg_view('input/plaintext', array(
-										'name' => 'params[commontags]', 
-										'value' => $vars['entity']->commontags)
-										); 
+		'name' => 'params[commontags]', 
+		'value' => $vars['entity']->commontags)
+	); 
 	?>
 </p>
 <p>
 	<label><?php echo elgg_echo('typeaheadtags:label:defaulttags'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(
-										'name' => 'params[defaulttags]', 
-										'value' => $vars['entity']->defaulttags)
-										); 
+		'name' => 'params[defaulttags]', 
+		'value' => $vars['entity']->defaulttags)
+	); 
 	?>
 </p>
