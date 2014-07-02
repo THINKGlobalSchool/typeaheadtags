@@ -5,7 +5,7 @@
  * @package Typeahead Tags
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010
+ * @copyright THINK Global School 2010 - 2014
  * @link http://www.thinkglobalschool.com/
  * 
  * OVERRIDES:
@@ -21,28 +21,12 @@
 elgg_register_event_handler('init', 'system', 'typeaheadtags_init');
 
 function typeaheadtags_init() {
-	global $CONFIG;
-	
-	// Register simplecache views for tipTip
-	elgg_register_simplecache_view('js/tiptip');
-	elgg_register_simplecache_view('css/tiptip');
-	
-	// Register CSS for tiptip
-	$t_css = elgg_get_simplecache_url('css', 'tiptip');
-	elgg_register_simplecache_view('css/tiptip');
-	elgg_register_css('jquery.tiptip', $t_css);
-	
-	// Register JS for tiptip
-	$t_js = elgg_get_simplecache_url('js', 'tiptip');
-	elgg_register_simplecache_view('js/tiptip');
-	elgg_register_js('jquery.tiptip', $t_js, 'head', 501);
-	
+
 	// Register typeaheadtags JS
 	$typeahead_js = elgg_get_simplecache_url('js', 'typeaheadtags/typeaheadtags');
 	elgg_register_simplecache_view('js/typeaheadtags/typeaheadtags');
 	elgg_register_js('elgg.typeaheadtags', $typeahead_js, 'head', 502);
 	elgg_load_js('elgg.typeaheadtags');
-
 
 	// Register JS for autosuggest
 	$autosuggest_js = elgg_get_simplecache_url('js', 'typeaheadtags/autosuggest');
