@@ -19,5 +19,11 @@
 		<priority>before</priority>
 		<plugin>tgstheme</plugin>
 	</requires>
+	<requires>
+		<type>plugin</type>
+		<name>tgstheme</name>
+		<version>1.9</version>
+		<comparison>ge</comparison>
+	</requires>
 	<activate_on_install>true</activate_on_install>
 </plugin_manifest>
