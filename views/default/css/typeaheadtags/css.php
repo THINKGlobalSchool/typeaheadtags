@@ -11,47 +11,46 @@
  */
 ?>
 
-@media screen and (-webkit-min-device-pixel-ratio: 0)
-ul.as-selections {
-border-top-width: 2px;
-}
-
 li.typeaheadtags-help-button {
 	font-weight: bold;
 }
 
 li.typeaheadtags-help-button:hover {
+	border-color: #444 !important;
 	cursor: pointer;
 }
 
 li.typeaheadtags-help-button, li.typeaheadtags-help-button.blur {
 	padding: 2px 7px 2px 8px !important;
-	color: #2b3840 !important;
-	background-color: #bbd4f1 !important;
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbd4f1), to(#a3c2e5)) !important;
-	border-color: #6da0e0 !important;
-	border-top-color: #8bb7ed !important;
+	color: #FFFFFF !important;	
+	background: #bbb !important;
+	border-color: #666666 !important;
+	border-top-color: #666666 !important;
 }
 
 li.typeaheadtags-help-button:hover {
 	cursor: pointer;
+	background: #999 !important;
 }
 
 div.typeaheadtags-help-container {
 	margin-top: 5px;
 	display: none;
-	border: 1px solid #777;
-	box-shadow: 1px 1px 1px #666;
-	max-width: 748px;
+	background: #FFFFFF;
+	border: 1px solid #AAA;
+	box-shadow: 1px 1px 2px #777;
+	max-width: 754px;
+	padding: 0;
+}
+
+.as-results {
+	position: relative;
+	z-index: 8001;
 }
 
 table#typeaheadtags-tags-list {
 	float: left;
 	width: 30%;
-}
-
-div.typeaheadtags-module {
-	margin-top: 5px;
 }
 
 div.typeaheadtags-module .elgg-body {
@@ -60,7 +59,8 @@ div.typeaheadtags-module .elgg-body {
 
 div.typeaheadtags-module-standard {
 	float: left;
-	width: 45%;
+	width: 48%;
+	margin-right: 1%;
 }
 
 div.typeaheadtags-module-help {
@@ -81,11 +81,13 @@ a.typeaheadtags-help-close:hover {
 	cursor: pointer;
 }
 
+.elgg-input-tags-parent .as-selections {
+	background: #FFFFFF;
+}
+
 span.tag-name a:hover {
 	cursor: pointer;
 }
-
-/* Tag Error */
 
 .tag-error {
 	border: 3px solid Red !important;

@@ -5,8 +5,8 @@
  * @package Typeahead Tags
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010
- * @link http://www.thinkglobalschool.com/
+ * @copyright THINK Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org/
  */
 
 elgg_load_js('jquery.tiptip');
@@ -27,7 +27,7 @@ foreach ($tags as $idx => $tag) {
 $top_tags_data = elgg_get_tags(array('limit' => 11));
 
 $title = elgg_echo('typeaheadtags:label:help');
-$title .= '<a class="typeaheadtags-help-close"><span class="elgg-icon elgg-icon-delete right"></span></a>';
+$title .= '<a class="typeaheadtags-help-close"><span class="elgg-icon elgg-icon-delete float-right"></span></a>';
 
 $content .= "<script type='text/javascript'>
 		function addTag(text, uid) {
