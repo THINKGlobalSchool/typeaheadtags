@@ -68,8 +68,8 @@ function typeaheadtags_page_handler($page) {
 	switch($page[0]) {
 		// Tag search
 		case 'search':
-			//gatekeeper(); - Not sure if I need to prevent access..
-			$q = get_input('q');
+			gatekeeper();
+			$q = mysql_real_escape_string(get_input('q'));
 
 			// Only grab tags similar to the input
 			$wheres[] = "msv.string like '%$q%'";	
